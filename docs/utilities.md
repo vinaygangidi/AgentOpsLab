@@ -93,6 +93,32 @@ python utilities/verify_products.py
 
 ---
 
+### product_catalog_generator.py
+Generates and creates 100+ products in HubSpot catalog.
+
+**Usage:**
+```bash
+python utilities/product_catalog_generator.py
+```
+
+**What it does:**
+- Generates products across 6 categories
+- Creates SKUs systematically
+- Sets realistic pricing
+- Bulk creates in HubSpot
+
+**Output:**
+- 100 products created (configurable)
+- Categories: Software, Services, Support, Hardware, Cloud, Subscriptions
+- Each with name, SKU, price, cost
+
+**Note:** This is a utility (no AI) - generates products programmatically without Claude enrichment.
+
+**Configuration:**
+Edit `TOTAL_PRODUCTS` in the file to create more or fewer products.
+
+---
+
 ## When to Use Utilities vs Agents
 
 ### Use Utilities When:

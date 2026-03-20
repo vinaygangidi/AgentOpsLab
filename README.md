@@ -1,213 +1,418 @@
 # AgentOpsLab - Intelligent Business Automation Platform
 
-A flexible collection of AI-powered agents that automate operations across multiple business systems including CRM, ERP, CPQ, legal, and revenue recognition platforms. Built with Claude AI for intelligent data processing and enrichment.
+Professional AI-powered agents for CRM automation with Claude AI integration. Production-ready code with comprehensive documentation.
 
 ## Overview
 
-AgentOpsLab provides production-ready AI agents that can create, update, and manage records across various enterprise systems. Each agent uses Anthropic's Claude AI to validate, enrich, and process data intelligently before interacting with external systems.
-
-## Current Capabilities
-
-This platform currently includes agents for CRM automation (HubSpot implementation):
-
-1. **Contact Creator** - Validates and enriches contact data with AI before creation
-2. **Single Contact Creator** - Creates individual contacts with full AI enrichment
-3. **Bulk Contact Creator** - Processes hundreds or thousands of contacts in batches
-4. **Flexible Account Creator** - Creates companies in single or bulk mode (1 to millions of records)
-5. **Flexible Deal Creator** - Creates deals/opportunities in single or bulk mode with AI forecasting
-6. **Flexible Quote Creator** - Creates quote shells in single or bulk mode (Note: HubSpot quotes have limited API fields)
-
-All agents use the same flexible architecture and can be adapted to work with other systems.
-
-## Key Features
-
-- AI-powered data validation and enrichment using Claude
-- Flexible single or bulk operation modes
-- Batch processing with automatic rate limiting
-- Comprehensive error handling and progress tracking
-- Production-ready code with professional documentation
-- Extensible architecture for multiple business systems
-
-## Technology Stack
-
-- Python 3.12+
-- Anthropic Claude API (Claude Sonnet 4)
-- Modular design for easy system integration
-- Environment-based configuration for security
+AgentOpsLab provides enterprise-grade AI agents that automate CRM operations intelligently. Each agent uses Anthropic's Claude AI to validate, enrich, and process data before creating records in HubSpot. All agents are flexible - handling anywhere from 1 record to millions with the same code.
 
 ## Project Structure
 ```
 AgentOpsLab/
-├── agents/                      # AI agent implementations
-│   ├── contact_creator.py      # Contact validation and testing
-│   ├── hubspot_contact_real.py # Single contact with AI enrichment
-│   ├── bulk_contact_creator.py # Bulk contact operations
-│   ├── account_creator.py      # Flexible company/account creator
-│   ├── deal_creator.py         # Flexible deal/opportunity creator
-│   └── quote_creator.py        # Flexible quote shell creator
-├── docs/                        # Comprehensive documentation
-│   ├── contact_creator.md
-│   ├── hubspot_contact_real.md
-│   ├── bulk_contact_creator.md
-│   ├── account_creator.md
-│   ├── deal_creator.md
-│   └── quote_creator.md
-├── tools/                       # Utility functions (future)
-├── data/                        # Data files (future)
-└── .env                         # API credentials (not in repo)
+├── agents/                          # PRODUCTION AI AGENTS
+│   ├── contact_creator_agent.py    # Creates contacts (1 to millions)
+│   ├── account_creator_agent.py    # Creates companies (1 to millions)
+│   ├── deal_creator_agent.py       # Creates deals (1 to millions)
+│   └── quote_cpq_agent.py          # Complete CPQ system
+│
+├── agents/examples/                 # LEARNING EXAMPLES
+│   ├── README.md
+│   ├── contact_validator.py        # Validation demo (no creation)
+│   └── single_contact_demo.py      # Simple single-record example
+│
+├── utilities/                       # NON-AI UTILITIES
+│   ├── product_catalog_generator.py # Bulk product creation
+│   ├── verify_contacts.py
+│   ├── verify_companies.py
+│   ├── verify_deals.py
+│   ├── verify_quotes.py
+│   └── verify_products.py
+│
+├── docs/                            # COMPREHENSIVE DOCUMENTATION
+│   ├── contact_creator_agent.md
+│   ├── account_creator_agent.md
+│   ├── deal_creator_agent.md
+│   ├── quote_cpq_agent.md
+│   ├── product_catalog_generator.md
+│   └── utilities.md
+│
+└── .env                             # API credentials (not in repo)
 ```
 
-## Prerequisites
+## Production Agents
 
-Before you begin, you need:
+### 1. Contact Creator Agent
+**File:** `agents/contact_creator_agent.py`
 
-1. Python 3.12 or higher installed
-2. Anthropic API key (get from https://console.anthropic.com)
-3. API access to your target system (currently HubSpot)
-4. Basic understanding of command line
+Creates contacts with AI enrichment. Flexible: 1 contact to 1 million contacts with same code.
+
+**Features:**
+- Email validation and formatting
+- Phone number standardization
+- Job title suggestions
+- Data quality assessment
+- Batch processing with rate limiting
+
+**Usage:**
+```bash
+python agents/contact_creator_agent.py
+```
+
+**Configuration:**
+```python
+MODE = "single"              # or "bulk"
+TOTAL_CONTACTS = 1000       # for bulk mode
+ENRICH_WITH_CLAUDE = True   # AI enrichment
+```
+
+---
+
+### 2. Account Creator Agent
+**File:** `agents/account_creator_agent.py`
+
+Creates companies/accounts with AI enrichment. Flexible: 1 company to 1 million companies.
+
+**Features:**
+- Industry classification
+- Company size estimation
+- Revenue estimation
+- Business descriptions
+- Website validation
+
+**Usage:**
+```bash
+python agents/account_creator_agent.py
+```
+
+**What it creates:** Complete company records with AI-enriched data
+
+---
+
+### 3. Deal Creator Agent
+**File:** `agents/deal_creator_agent.py`
+
+Creates deals/opportunities with AI forecasting. Flexible: 1 deal to 1 million deals.
+
+**Features:**
+- Close date prediction
+- Deal stage suggestions
+- Win probability assessment
+- Strategic recommendations
+- Pipeline management
+
+**Usage:**
+```bash
+python agents/deal_creator_agent.py
+```
+
+**AI Enhancement:** Claude analyzes deal characteristics and suggests optimal stages and close dates.
+
+---
+
+### 4. Quote CPQ Agent
+**File:** `agents/quote_cpq_agent.py`
+
+Complete Configure-Price-Quote system. Creates production-ready quotes with products, line items, pricing, and totals.
+
+**Features:**
+- Product catalog management
+- Deal creation with line items
+- Automatic pricing calculations
+- Discount handling
+- Total calculations
+- Full associations
+
+**Usage:**
+```bash
+python agents/quote_cpq_agent.py
+```
+
+**What it creates:**
+- Products in catalog (or reuses existing)
+- Deal with complete pricing
+- Line items with quantities and discounts
+- Automatic total: $42,500 (example)
+- Ready to send to customer
+
+**This is the most powerful agent** - creates fully executable quotes ready for order conversion.
+
+---
+
+## Utilities (Non-AI Scripts)
+
+### Verification Scripts
+
+Quick data inspection without AI overhead:
+```bash
+python utilities/verify_contacts.py      # View recent contacts
+python utilities/verify_companies.py     # View recent companies
+python utilities/verify_deals.py         # View recent deals
+python utilities/verify_quotes.py        # View recent quotes
+python utilities/verify_products.py      # View recent products
+```
+
+### Product Catalog Generator
+```bash
+python utilities/product_catalog_generator.py
+```
+
+Creates 100+ products across 6 categories (Software, Services, Support, Hardware, Cloud, Subscriptions) without AI.
+
+---
 
 ## Quick Start
 
-### 1. Clone the Repository
+### 1. Clone & Setup
 ```bash
 git clone https://github.com/vinaygangidi/AgentOpsLab.git
 cd AgentOpsLab
-```
-
-### 2. Set Up Virtual Environment
-```bash
 python3 -m venv venv
 source venv/bin/activate
+pip install anthropic hubspot-api-client python-dotenv
 ```
 
-### 3. Install Dependencies
-```bash
-pip install anthropic hubspot-api-client python-dotenv pydantic langchain-anthropic
-```
+### 2. Configure API Keys
 
-### 4. Configure API Keys
-
-Create a `.env` file in the project root:
+Create `.env` file:
 ```bash
 touch .env
 ```
 
-Add your API keys to the `.env` file:
+Add keys:
 ```
 ANTHROPIC_API_KEY=your-anthropic-key-here
 HUBSPOT_API_KEY=your-hubspot-key-here
 ```
 
-### 5. Run an Agent
-
-Test with contact validation:
+### 3. Run an Agent
 ```bash
-python agents/contact_creator.py
+# Create contacts
+python agents/contact_creator_agent.py
+
+# Create companies
+python agents/account_creator_agent.py
+
+# Create deals
+python agents/deal_creator_agent.py
+
+# Create complete quotes with products
+python agents/quote_cpq_agent.py
+
+# Generate product catalog
+python utilities/product_catalog_generator.py
+
+# Verify what was created
+python utilities/verify_contacts.py
 ```
 
-Create a real contact:
-```bash
-python agents/hubspot_contact_real.py
-```
+---
 
-Process bulk contacts:
-```bash
-python agents/bulk_contact_creator.py
-```
+## Agent vs Utility - When to Use What
 
-Create companies:
-```bash
-python agents/account_creator.py
-```
+### Use Production Agents When:
+- ✅ Creating new records
+- ✅ Need AI enrichment
+- ✅ Bulk operations (100s-1000s of records)
+- ✅ Complex workflows
+- ✅ Production deployments
 
-Create deals:
-```bash
-python agents/deal_creator.py
-```
+### Use Utilities When:
+- ✅ Quick verification
+- ✅ Inspecting recent records
+- ✅ Debugging
+- ✅ No AI needed
+- ✅ Instant results
 
-Create quotes:
-```bash
-python agents/quote_creator.py
-```
+### Use Examples When:
+- ✅ Learning the codebase
+- ✅ Understanding core concepts
+- ✅ Experimenting with AI
+- ✅ Teaching others
 
-## Agent Architecture
+---
 
-### How Agents Work
+## Key Features
 
-All agents follow a consistent pattern:
+### All Production Agents Include:
 
-1. **Data Input** - Accept data from user, file, or database
-2. **AI Enrichment** - Claude validates and enriches data intelligently
-3. **System Integration** - Formatted data sent to target system via API
-4. **Result Tracking** - Success/failure logged and reported
+- **Flexible Modes:** Single record or millions with same code
+- **AI Enrichment:** Claude validates and enhances data
+- **Batch Processing:** 100 records per API call
+- **Rate Limiting:** Automatic delays to respect API limits
+- **Error Handling:** Comprehensive try-catch with detailed logging
+- **Progress Tracking:** Real-time progress for bulk operations
+- **Professional Output:** Clean, formatted status messages
 
-### Flexible Operation Modes
+### Quote CPQ Agent Specifically:
 
-Agents support both single and bulk operations:
+- **Product Catalog Management:** Create or reuse products
+- **Line Item Support:** Full product configuration
+- **Pricing Calculations:** Automatic totals with discounts
+- **Association Management:** All objects properly linked
+- **Production Ready:** Quotes ready to send to customers
 
-**Single Mode:**
-- Individual record processing
-- Full AI enrichment
-- Detailed error reporting
-- Best for manual operations and testing
-
-**Bulk Mode:**
-- Batch processing (100+ records per request)
-- Automatic rate limiting
-- Progress tracking
-- Production-ready for large datasets
-
-## Use Cases
-
-### Current Implementation (CRM)
-- Import contacts from spreadsheets or databases
-- Migrate data between CRM systems
-- Enrich incomplete contact records with AI
-- Bulk create companies/accounts
-- Create sales opportunities and deals
-- Generate quote shells for sales pipeline
-- Data quality validation before import
-
-### Future Capabilities
-- ERP system automation (orders, invoices, inventory)
-- Legal document processing and management
-- CPQ (Configure, Price, Quote) automation
-- Revenue recognition record creation
-- Cross-system data synchronization
-- Compliance and audit trail generation
+---
 
 ## Documentation
 
-Detailed documentation for each agent is available in the `docs/` folder:
+Comprehensive guides for each component:
 
-- [Contact Creator Agent](docs/contact_creator.md) - Data validation and testing
-- [Real Contact Creator](docs/hubspot_contact_real.md) - Single record creation
-- [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations
-- [Flexible Account Creator](docs/account_creator.md) - Single or bulk company creation
-- [Flexible Deal Creator](docs/deal_creator.md) - Single or bulk deal/opportunity creation
-- [Flexible Quote Creator](docs/quote_creator.md) - Single or bulk quote shell creation
+### Agent Documentation
+- [Contact Creator Agent](docs/contact_creator_agent.md)
+- [Account Creator Agent](docs/account_creator_agent.md)
+- [Deal Creator Agent](docs/deal_creator_agent.md)
+- [Quote CPQ Agent](docs/quote_cpq_agent.md)
 
-## Configuration Options
+### Utility Documentation
+- [Product Catalog Generator](docs/product_catalog_generator.md)
+- [Verification Utilities](docs/utilities.md)
 
-Each agent has configurable parameters:
+### Examples
+- [Learning Examples](agents/examples/README.md)
 
-### Contact, Account, Deal, and Quote Creators
+---
+
+## Configuration
+
+All production agents use the same configuration pattern:
 ```python
+# Mode selection
 MODE = "single"              # "single" or "bulk"
-TOTAL_RECORDS = 1000        # For bulk mode
-ENRICH_WITH_CLAUDE = True   # Enable AI enrichment
+
+# Bulk settings
+TOTAL_RECORDS = 1000        # How many to create
 BATCH_SIZE = 100            # Records per API call
 RATE_LIMIT_DELAY = 0.5      # Seconds between batches
+
+# AI settings
+ENRICH_WITH_CLAUDE = True   # Enable AI enrichment
+ENRICH_SAMPLE = False       # Enrich first 10 only (bulk mode)
 ```
 
-## Security Best Practices
+---
 
-This project follows security best practices:
+## Performance
 
-- API keys stored in `.env` file (never committed to Git)
-- `.gitignore` configured to exclude sensitive files
-- Environment variables loaded at runtime
-- No hardcoded credentials in code
+### With AI Enrichment:
+- **Single mode:** 2-4 seconds per record
+- **Bulk mode:** 100 records in 5-10 seconds
+- **1,000 records:** 45-60 seconds
+
+### Without AI Enrichment:
+- **Single mode:** 1-2 seconds per record
+- **Bulk mode:** 100 records in 2-3 seconds
+- **1,000 records:** 20-30 seconds
+
+### Quote CPQ Agent:
+- **3-product quote:** ~5 seconds total
+- Includes: product creation, deal creation, line items, associations
+
+---
+
+## Cost Considerations
+
+### Claude API Costs
+
+**With AI enrichment:**
+- Per record: ~$0.001 - $0.002
+- 1,000 records: ~$1 - $2
+- 10,000 records: ~$10 - $20
+
+**Without AI enrichment or utilities:** $0
+
+### HubSpot API Costs
+
+Free within plan limits (250,000 daily requests).
+
+---
+
+## HubSpot Requirements
+
+### Required Scopes
+
+Add these to your HubSpot Private App:
+
+**Contacts:**
+- `crm.objects.contacts.read`
+- `crm.objects.contacts.write`
+
+**Companies:**
+- `crm.objects.companies.read`
+- `crm.objects.companies.write`
+
+**Deals:**
+- `crm.objects.deals.read`
+- `crm.objects.deals.write`
+
+**Products & Line Items:**
+- `crm.objects.products.read`
+- `crm.objects.products.write`
+- `crm.objects.line_items.read`
+- `crm.objects.line_items.write`
+- `e-commerce`
+
+**Quotes:**
+- `crm.objects.quotes.read`
+- `crm.objects.quotes.write`
+- `crm.schemas.quotes.read`
+- `crm.schemas.quotes.write`
+
+**Important:** After adding scopes, regenerate your access token!
+
+---
+
+## Use Cases
+
+### CRM Data Migration
+```bash
+# Import contacts
+python agents/contact_creator_agent.py  # MODE="bulk", TOTAL=5000
+
+# Import companies
+python agents/account_creator_agent.py  # MODE="bulk", TOTAL=2000
+
+# Import deals
+python agents/deal_creator_agent.py     # MODE="bulk", TOTAL=1000
+```
+
+### Sales Pipeline Setup
+```bash
+# Generate product catalog
+python utilities/product_catalog_generator.py
+
+# Create deals with products
+python agents/quote_cpq_agent.py
+```
+
+### Data Enrichment
+```bash
+# Enrich existing data by creating enriched versions
+python agents/contact_creator_agent.py  # ENRICH_WITH_CLAUDE=True
+```
+
+---
+
+## What We've Built
+
+### Records Created:
+- ✅ 900+ contacts
+- ✅ Companies/accounts (flexible quantity)
+- ✅ 100+ deals
+- ✅ 100+ products
+- ✅ Complete quotes with line items and pricing
+
+### Capabilities:
+- ✅ 1-to-millions flexibility (all agents)
+- ✅ AI enrichment with Claude
+- ✅ Batch processing
+- ✅ Rate limiting
+- ✅ Error handling
+- ✅ Progress tracking
+- ✅ Complete CPQ workflow
+- ✅ Product catalog management
+- ✅ Quick verification utilities
+
+---
 
 ## Extending to Other Systems
 
@@ -215,141 +420,87 @@ To add support for a new business system:
 
 1. Install the system's Python SDK
 2. Add API credentials to `.env`
-3. Copy an existing agent as a template
+3. Copy `contact_creator_agent.py` as template
 4. Update API calls to match new system
-5. Adjust field mappings as needed
-6. Test in single mode first
+5. Adjust field mappings
+6. Test in single mode
 7. Deploy to bulk operations
 
-The architecture is system-agnostic and designed for easy extension.
+The architecture is system-agnostic and designed for extension.
 
-## Performance
-
-### Single Mode
-- 2-4 seconds per record with AI enrichment
-- 1-2 seconds per record without enrichment
-
-### Bulk Mode
-- 100 records: 5-10 seconds
-- 1,000 records: 40-60 seconds
-- 10,000 records: 6-10 minutes
-- Scales linearly with proper rate limiting
-
-## API Rate Limits
-
-Agents automatically respect system rate limits:
-- Batch processing to maximize throughput
-- Configurable delays between batches
-- Automatic retry logic for transient failures
-- Progress tracking for long-running operations
-
-## Cost Considerations
-
-### Claude API Costs
-
-With Claude Sonnet 4:
-- Per record enrichment: ~$0.001 - $0.002
-- 1,000 records: ~$1 - $2
-- 10,000 records: ~$10 - $20
-
-Cost optimization strategies:
-- Sample enrichment (enrich first 10-100 only)
-- Conditional enrichment (only incomplete records)
-- Batch processing to minimize overhead
-
-### System API Costs
-
-Most business systems provide free API access within plan limits. Check your specific system's documentation.
+---
 
 ## Troubleshooting
 
 ### Common Issues
 
-**"Module not found" Error**
+**Module not found:**
 ```bash
 source venv/bin/activate
-pip install anthropic hubspot-api-client python-dotenv pydantic langchain-anthropic
+pip install anthropic hubspot-api-client python-dotenv
 ```
 
-**"API key not found" Error**
+**API key not found:**
 ```bash
-cat .env  # Verify keys are present
+cat .env  # Verify keys exist
 ```
 
-**SSL Certificate Error**
-```bash
-pip install --upgrade certifi
-```
+**HubSpot scope errors:**
+1. Add required scopes to HubSpot Private App
+2. Regenerate access token
+3. Update token in `.env`
 
-**Rate Limit Exceeded**
-- Increase RATE_LIMIT_DELAY
-- Reduce BATCH_SIZE
-- Wait before retrying
+**Quotes not viewable:**
+- Requires Sales Hub Professional/Enterprise with CPQ
+- Use Quote CPQ Agent instead (creates deals with line items)
 
-**HubSpot Scope Errors**
-- Add required scopes to your Private App
-- Regenerate access token after adding scopes
-- Update token in .env file
+---
 
-## HubSpot Requirements
+## Security
 
-### Required Scopes
+- ✅ API keys in `.env` (never committed)
+- ✅ `.gitignore` excludes sensitive files
+- ✅ Environment variables loaded at runtime
+- ✅ No hardcoded credentials
 
-Your HubSpot Private App needs these scopes:
-
-**For Contacts:**
-- `crm.objects.contacts.read`
-- `crm.objects.contacts.write`
-
-**For Companies:**
-- `crm.objects.companies.read`
-- `crm.objects.companies.write`
-
-**For Deals:**
-- `crm.objects.deals.read`
-- `crm.objects.deals.write`
-
-**For Quotes:**
-- `crm.objects.quotes.read`
-- `crm.objects.quotes.write`
-- `crm.schemas.quotes.read`
-- `crm.schemas.quotes.write`
-
-Note: Quotes require Sales Hub Professional or Enterprise
+---
 
 ## Future Roadmap
 
-Planned enhancements:
+- Multi-system support (ERP, legal, revenue recognition)
+- Advanced orchestration workflows
+- CSV import/export
+- Database integration
+- Webhook triggers
+- Web dashboard
+- REST API endpoints
+- Association management tools
+- Custom object support
 
-- **Multi-System Support**: ERP, legal, CPQ, revenue recognition
-- **Advanced Orchestration**: Multi-agent workflows using CrewAI
-- **Data Validation**: Deduplication and quality checks
-- **CSV Import/Export**: File-based data operations
-- **Database Integration**: Direct database connectivity
-- **Webhook Triggers**: Event-driven automation
-- **Email Notifications**: Completion and error alerts
-- **Web Dashboard**: Visual monitoring and control
-- **API Endpoints**: REST API for external integrations
-- **Line Items Support**: Add products to deals and quotes
-- **Association Management**: Link contacts to companies and deals
-- **Custom Objects**: Support for HubSpot custom objects
+---
 
 ## Contributing
 
-This is a personal learning and automation project. Suggestions and feedback are welcome.
+This is a personal learning and automation project. Suggestions and feedback welcome via GitHub issues.
+
+---
 
 ## License
 
-This project is for educational and business automation purposes.
+Educational and business automation purposes.
+
+---
 
 ## Contact
 
-Created by Vinay Gangidi
+**Created by:** Vinay Gangidi
 
-Repository: https://github.com/vinaygangidi/AgentOpsLab
+**Repository:** https://github.com/vinaygangidi/AgentOpsLab
+
+---
 
 ## Acknowledgments
 
 - Anthropic for Claude AI
-- HubSpot for CRM platform and API access
+- HubSpot for CRM platform
 - Python community for excellent libraries
