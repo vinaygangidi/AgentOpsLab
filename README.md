@@ -15,6 +15,7 @@ This platform currently includes agents for CRM automation (HubSpot implementati
 3. **Bulk Contact Creator** - Processes hundreds or thousands of contacts in batches
 4. **Flexible Account Creator** - Creates companies in single or bulk mode (1 to millions of records)
 5. **Flexible Deal Creator** - Creates deals/opportunities in single or bulk mode with AI forecasting
+6. **Flexible Quote Creator** - Creates quote shells in single or bulk mode (Note: HubSpot quotes have limited API fields)
 
 All agents use the same flexible architecture and can be adapted to work with other systems.
 
@@ -42,13 +43,15 @@ AgentOpsLab/
 │   ├── hubspot_contact_real.py # Single contact with AI enrichment
 │   ├── bulk_contact_creator.py # Bulk contact operations
 │   ├── account_creator.py      # Flexible company/account creator
-│   └── deal_creator.py         # Flexible deal/opportunity creator
+│   ├── deal_creator.py         # Flexible deal/opportunity creator
+│   └── quote_creator.py        # Flexible quote shell creator
 ├── docs/                        # Comprehensive documentation
 │   ├── contact_creator.md
 │   ├── hubspot_contact_real.md
 │   ├── bulk_contact_creator.md
 │   ├── account_creator.md
-│   └── deal_creator.md
+│   ├── deal_creator.md
+│   └── quote_creator.md
 ├── tools/                       # Utility functions (future)
 ├── data/                        # Data files (future)
 └── .env                         # API credentials (not in repo)
@@ -122,6 +125,11 @@ Create deals:
 python agents/deal_creator.py
 ```
 
+Create quotes:
+```bash
+python agents/quote_creator.py
+```
+
 ## Agent Architecture
 
 ### How Agents Work
@@ -157,6 +165,7 @@ Agents support both single and bulk operations:
 - Enrich incomplete contact records with AI
 - Bulk create companies/accounts
 - Create sales opportunities and deals
+- Generate quote shells for sales pipeline
 - Data quality validation before import
 
 ### Future Capabilities
@@ -176,12 +185,13 @@ Detailed documentation for each agent is available in the `docs/` folder:
 - [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations
 - [Flexible Account Creator](docs/account_creator.md) - Single or bulk company creation
 - [Flexible Deal Creator](docs/deal_creator.md) - Single or bulk deal/opportunity creation
+- [Flexible Quote Creator](docs/quote_creator.md) - Single or bulk quote shell creation
 
 ## Configuration Options
 
 Each agent has configurable parameters:
 
-### Contact, Account, and Deal Creators
+### Contact, Account, Deal, and Quote Creators
 ```python
 MODE = "single"              # "single" or "bulk"
 TOTAL_RECORDS = 1000        # For bulk mode
@@ -276,6 +286,37 @@ pip install --upgrade certifi
 - Reduce BATCH_SIZE
 - Wait before retrying
 
+**HubSpot Scope Errors**
+- Add required scopes to your Private App
+- Regenerate access token after adding scopes
+- Update token in .env file
+
+## HubSpot Requirements
+
+### Required Scopes
+
+Your HubSpot Private App needs these scopes:
+
+**For Contacts:**
+- `crm.objects.contacts.read`
+- `crm.objects.contacts.write`
+
+**For Companies:**
+- `crm.objects.companies.read`
+- `crm.objects.companies.write`
+
+**For Deals:**
+- `crm.objects.deals.read`
+- `crm.objects.deals.write`
+
+**For Quotes:**
+- `crm.objects.quotes.read`
+- `crm.objects.quotes.write`
+- `crm.schemas.quotes.read`
+- `crm.schemas.quotes.write`
+
+Note: Quotes require Sales Hub Professional or Enterprise
+
 ## Future Roadmap
 
 Planned enhancements:
@@ -289,6 +330,9 @@ Planned enhancements:
 - **Email Notifications**: Completion and error alerts
 - **Web Dashboard**: Visual monitoring and control
 - **API Endpoints**: REST API for external integrations
+- **Line Items Support**: Add products to deals and quotes
+- **Association Management**: Link contacts to companies and deals
+- **Custom Objects**: Support for HubSpot custom objects
 
 ## Contributing
 
@@ -307,5 +351,5 @@ Repository: https://github.com/vinaygangidi/AgentOpsLab
 ## Acknowledgments
 
 - Anthropic for Claude AI
-- Business system providers for API access
+- HubSpot for CRM platform and API access
 - Python community for excellent libraries
