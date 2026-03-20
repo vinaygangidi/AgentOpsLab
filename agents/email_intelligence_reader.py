@@ -5,145 +5,11 @@ Shows what WOULD be created from email conversations
 """
 
 import os
-import json
-import re
-from anthropic import Anthropic
-from dotenv import load_dotenv
+import sys
 
-load_dotenv()
-claude = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
-
-
-def read_email_conversation(filepath):
-    """Reads email conversation from file"""
-    
-    print(f"\n📧 Reading email conversation: {filepath}")
-    
-    with open(filepath, 'r') as f:
-        conversation = f.read()
-    
-    print(f"   Length: {len(conversation)} characters")
-    print(f"   Lines: {conversation.count(chr(10))} lines\n")
-    
-    return conversation
-
-
-def extract_intelligence(conversation):
-    """Uses Claude to extract structured data from messy conversation"""
-    
-    print("🤖 Analyzing conversation with Claude AI...")
-    print("   Extracting: contacts, companies, deals, products, sentiment\n")
-    
-    prompt = f"""You are an expert sales intelligence analyst. Analyze this email conversation and extract structured information for CRM creation.
-
-EMAIL CONVERSATION:
-{conversation}
-
-EXTRACT THE FOLLOWING INFORMATION:
-
-1. PRIMARY CONTACT (the buyer/decision maker):
-   - First name
-   - Last name
-   - Email
-   - Phone (if mentioned)
-   - Job title
-   - Role/responsibilities
-
-2. COMPANY INFORMATION:
-   - Company name
-   - Industry
-   - Number of employees (estimate if not exact)
-   - Annual revenue (estimate based on company size/context)
-   - Website (construct likely domain if not mentioned)
-   - Description (what they do)
-
-3. DEAL INFORMATION:
-   - Deal name (create descriptive name)
-   - Deal amount (final negotiated price or best estimate)
-   - Products/services being purchased (list each)
-   - Close date (estimate based on urgency/timeline mentioned)
-   - Deal stage (choose: appointmentscheduled, qualifiedtobuy, presentationscheduled, decisionmakerboughtin, contractsent)
-   - Win probability (0-100)
-
-4. PRODUCTS & QUANTITIES:
-   For each product/service mentioned, provide:
-   - Product name
-   - Quantity
-   - Unit price (if mentioned or estimated)
-   - Discount percentage (if mentioned)
-
-5. INTELLIGENCE ANALYSIS:
-   - Overall sentiment (positive/neutral/negative)
-   - Confidence level (high/medium/low) - how much information is available
-   - Key concerns or objections mentioned
-   - Next steps recommendation
-   - Risk assessment
-
-Return your analysis in this EXACT JSON format (no markdown, no extra text):
-
-{{
-  "contact": {{
-    "firstname": "",
-    "lastname": "",
-    "email": "",
-    "phone": "",
-    "jobtitle": "",
-    "notes": ""
-  }},
-  "company": {{
-    "name": "",
-    "domain": "",
-    "industry": "",
-    "numberofemployees": "",
-    "annualrevenue": "",
-    "description": ""
-  }},
-  "deal": {{
-    "dealname": "",
-    "amount": "",
-    "closedate": "YYYY-MM-DD",
-    "dealstage": "",
-    "probability": ""
-  }},
-  "products": [
-    {{
-      "name": "",
-      "quantity": 1,
-      "price": 0,
-      "discount": 0,
-      "sku": ""
-    }}
-  ],
-  "intelligence": {{
-    "sentiment": "",
-    "confidence": "",
-    "key_concerns": [],
-    "next_steps": "",
-    "risk_level": ""
-  }}
-}}"""
-
-    message = claude.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=2000,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    
-    response_text = message.content[0].text.strip()
-    
-    # Remove markdown code blocks if present
-    response_text = re.sub(r'^```json\s*', '', response_text)
-    response_text = re.sub(r'\s*```$', '', response_text)
-    response_text = response_text.strip()
-    
-    try:
-        data = json.loads(response_text)
-        print("✅ Intelligence extraction complete\n")
-        return data
-    except json.JSONDecodeError as e:
-        print(f"❌ Error parsing JSON: {e}")
-        print(f"Response: {response_text}")
-        return None
+# Import the extraction function from the refactored agent
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from email_intelligence_agent import extract_intelligence_from_email
 
 
 def display_extracted_data(data):
@@ -233,7 +99,7 @@ def display_extracted_data(data):
     print("EXTRACTION COMPLETE")
     print("="*70)
     print("\n💡 NOTE: This is READ-ONLY mode. No records were created in HubSpot.")
-    print("   To create records, use: email_intelligence_agent.py")
+    print("   To create records, use: python agents/pipeline_orchestrator_agent.py")
     print("="*70 + "\n")
 
 
@@ -244,11 +110,9 @@ def process_email_conversation(filepath):
     print("EMAIL INTELLIGENCE READER (Read-Only Mode)")
     print("="*70)
     
-    # Read conversation
-    conversation = read_email_conversation(filepath)
+    # Extract intelligence (does not create anything)
+    data = extract_intelligence_from_email(filepath)
     
-    # Extract intelligence
-    data = extract_intelligence(conversation)
     if not data:
         print("❌ Failed to extract intelligence from conversation")
         return
