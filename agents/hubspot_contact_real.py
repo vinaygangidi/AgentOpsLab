@@ -1,6 +1,6 @@
 """
 Real HubSpot Contact Creator Agent
-Creates actual contacts in HubSpot using Claude AI for enrichment
+Creates actual contacts in HubSpot using Claude AI for data enrichment
 """
 
 import os
@@ -9,15 +9,15 @@ from hubspot import HubSpot
 from hubspot.crm.contacts import SimplePublicObjectInputForCreate
 from dotenv import load_dotenv
 
-# Load API keys
+# Load environment variables
 load_dotenv()
 
-# Initialize Claude and HubSpot
+# Initialize clients
 claude = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
 hubspot = HubSpot(access_token=os.getenv('HUBSPOT_API_KEY'))
 
-# Mock contact data (you can change this!)
-mock_contact = {
+# Sample contact data
+MOCK_CONTACT = {
     "firstname": "Sarah",
     "lastname": "Johnson",
     "email": "sarah.johnson@techcorp.com",
@@ -25,12 +25,19 @@ mock_contact = {
     "company": "TechCorp Industries"
 }
 
+
 def enrich_contact_with_claude(contact_data):
     """
-    Use Claude to enrich and validate contact data
+    Enriches contact data using Claude AI.
+    
+    Args:
+        contact_data (dict): Basic contact information
+        
+    Returns:
+        dict: Enriched data from Claude
     """
     
-    print("🤖 Step 1: Enriching contact with Claude AI...")
+    print("Step 1: Enriching contact with Claude AI")
     
     prompt = f"""You are a contact enrichment agent. Review this contact:
 
@@ -60,7 +67,7 @@ EMAIL_VALID: Yes/No
     )
     
     response = message.content[0].text
-    print("✅ Claude enrichment complete!")
+    print("Claude enrichment complete")
     print(response)
     
     # Parse Claude's response
@@ -72,12 +79,20 @@ EMAIL_VALID: Yes/No
     
     return enriched
 
+
 def create_hubspot_contact(contact_data, enriched_data):
     """
-    Actually create the contact in HubSpot
+    Creates a contact in HubSpot CRM.
+    
+    Args:
+        contact_data (dict): Original contact data
+        enriched_data (dict): Enriched data from Claude
+        
+    Returns:
+        object: HubSpot API response or None if failed
     """
     
-    print("\n🏢 Step 2: Creating contact in HubSpot...")
+    print("\nStep 2: Creating contact in HubSpot")
     
     # Prepare contact properties
     properties = {
@@ -98,30 +113,36 @@ def create_hubspot_contact(contact_data, enriched_data):
             simple_public_object_input_for_create=simple_public_object_input
         )
         
-        print("✅ Contact created successfully in HubSpot!")
-        print(f"📧 Contact ID: {api_response.id}")
-        print(f"🔗 View in HubSpot: https://app.hubspot.com/contacts/contact/{api_response.id}")
+        print("Contact created successfully in HubSpot")
+        print(f"Contact ID: {api_response.id}")
+        print(f"View in HubSpot: https://app.hubspot.com/contacts/contact/{api_response.id}")
         
         return api_response
         
     except Exception as e:
-        print(f"❌ Error creating contact: {e}")
+        print(f"Error creating contact: {e}")
         return None
 
-if __name__ == "__main__":
+
+def main():
+    """Main execution function"""
     print("\n" + "=" * 70)
-    print("🚀 REAL HUBSPOT CONTACT CREATOR WITH CLAUDE AI")
+    print("REAL HUBSPOT CONTACT CREATOR WITH CLAUDE AI")
     print("=" * 70 + "\n")
     
     # Step 1: Enrich with Claude
-    enriched = enrich_contact_with_claude(mock_contact)
+    enriched = enrich_contact_with_claude(MOCK_CONTACT)
     
     # Step 2: Create in HubSpot
-    result = create_hubspot_contact(mock_contact, enriched)
+    result = create_hubspot_contact(MOCK_CONTACT, enriched)
     
     if result:
         print("\n" + "=" * 70)
-        print("✨ SUCCESS! Contact created in your HubSpot account!")
+        print("SUCCESS: Contact created in your HubSpot account")
         print("=" * 70)
     else:
-        print("\n❌ Failed to create contact. Check the error above.")
+        print("\nFailed to create contact. Check the error above.")
+
+
+if __name__ == "__main__":
+    main()

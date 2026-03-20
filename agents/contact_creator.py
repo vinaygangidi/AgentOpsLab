@@ -1,35 +1,42 @@
 """
-Simple Contact Creator Agent
-Uses Claude AI to validate and enrich contact data
+Contact Creator Agent
+Simple agent that validates and enriches contact data using Claude AI
 """
 
 import os
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
-# Load API key from .env file
+# Load environment variables
 load_dotenv()
 
-# Initialize Claude
+# Initialize Claude client
 client = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
 
-# Mock contact data (pretend this came from a form)
-mock_contact = {
+# Sample contact data for testing
+MOCK_CONTACT = {
     "name": "John Smith",
     "email": "jsmith@company.com",
     "phone": "5551234567",
     "company": "Acme Corp"
 }
 
+
 def create_contact(contact_data):
     """
-    Agent that validates and enriches contact data using Claude
+    Validates and enriches contact data using Claude AI.
+    
+    Args:
+        contact_data (dict): Contact information including name, email, phone, company
+        
+    Returns:
+        str: Analysis result from Claude
     """
     
-    print("🤖 Contact Creator Agent Started...")
-    print(f"📥 Processing: {contact_data['name']}")
+    print("Contact Creator Agent Started")
+    print(f"Processing: {contact_data['name']}")
     
-    # Ask Claude to validate and enrich the contact
+    # Build prompt for Claude
     prompt = f"""You are a contact validation agent. Review this contact information:
 
 Name: {contact_data['name']}
@@ -51,7 +58,7 @@ DATA_QUALITY: [score]/10
 NOTES: [any concerns or suggestions]
 """
     
-    # Call Claude
+    # Call Claude API
     message = client.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=500,
@@ -60,26 +67,29 @@ NOTES: [any concerns or suggestions]
         ]
     )
     
-    # Get Claude's response
+    # Extract response
     response = message.content[0].text
     
-    print("\n✅ Agent Analysis Complete!")
+    print("\nAgent Analysis Complete")
     print("=" * 60)
     print(response)
     print("=" * 60)
     
-    # In a real system, we would create the contact in HubSpot here
-    # For now, we just show the validated data
-    print("\n💾 Contact would be created in HubSpot with enriched data")
+    print("\nContact would be created in HubSpot with enriched data")
     
     return response
 
-# Run the agent
-if __name__ == "__main__":
+
+def main():
+    """Main execution function"""
     print("\n" + "=" * 60)
-    print("🚀 HUBSPOT CONTACT CREATOR AGENT")
+    print("HUBSPOT CONTACT CREATOR AGENT")
     print("=" * 60 + "\n")
     
-    result = create_contact(mock_contact)
+    result = create_contact(MOCK_CONTACT)
     
-    print("\n✨ Agent completed successfully!")
+    print("\nAgent completed successfully")
+
+
+if __name__ == "__main__":
+    main()
