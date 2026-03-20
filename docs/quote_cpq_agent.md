@@ -1,350 +1,448 @@
-# AgentOpsLab - Intelligent Business Automation Platform
-
-A comprehensive collection of AI-powered agents and utilities for automating CRM operations. Built with Claude AI for intelligent data processing and HubSpot integration for production deployment.
+# Quote CPQ Agent Documentation
 
 ## Overview
 
-AgentOpsLab provides production-ready AI agents that create, update, and manage CRM records intelligently. Each agent uses Anthropic's Claude AI to validate, enrich, and process data before interacting with external systems. The platform also includes non-AI utility scripts for quick verification and inspection.
+The Quote CPQ Agent is a complete Configure-Price-Quote system that creates production-ready quotes with products, line items, pricing, discounts, and automatic total calculations. Unlike simple quote creators, this system creates complete deals with full product configurations ready for order conversion.
 
-## Project Structure
+## Purpose
+
+This agent demonstrates:
+- Product catalog management
+- Deal creation with line items
+- Automatic pricing calculations
+- Discount handling
+- Full CPQ (Configure, Price, Quote) workflow
+- Association management between products, line items, and deals
+
+## File Location
+
+`agents/quote_cpq_agent.py`
+
+## Architecture
+
+### The Complete Quote Workflow
 ```
-AgentOpsLab/
-├── agents/                      # AI-POWERED AGENTS (Claude enrichment)
-│   ├── contact_creator.py      # Contact validation
-│   ├── hubspot_contact_real.py # Single contact creation
-│   ├── bulk_contact_creator.py # Bulk contact operations
-│   ├── account_creator.py      # Company/account creator
-│   ├── deal_creator.py         # Deal/opportunity creator
-│   ├── quote_creator.py        # Quote shell creator
-│   ├── complete_quote_system.py # Complete CPQ system
-│   └── product_catalog_generator.py # Product library generator
-├── utilities/                   # NON-AI UTILITY SCRIPTS
-│   ├── verify_contacts.py      # Check contacts
-│   ├── verify_companies.py     # Check companies
-│   ├── verify_deals.py         # Check deals
-│   ├── verify_quotes.py        # Check quotes
-│   └── verify_products.py      # Check products
-├── docs/                        # Comprehensive documentation
-└── .env                         # API credentials (not in repo)
+1. Create/Get Products → 2. Create Deal → 3. Add Line Items → 4. Calculate Totals
 ```
 
-## Current Capabilities
+**Why This Architecture:**
+- Products live in HubSpot catalog (reusable)
+- Line items attach to deals (not quotes directly)
+- Deal totals calculate automatically from line items
+- Ready to convert to invoices/orders
 
-### AI-Powered Agents (with Claude)
+## How to Use
 
-1. **Contact Creator** - Validates and enriches contact data with AI
-2. **Single Contact Creator** - Creates individual contacts with full enrichment
-3. **Bulk Contact Creator** - Processes hundreds/thousands of contacts in batches
-4. **Flexible Account Creator** - Creates companies in single or bulk mode
-5. **Flexible Deal Creator** - Creates deals/opportunities with AI forecasting
-6. **Flexible Quote Creator** - Creates quote shells (limited by HubSpot API)
-7. **Complete Quote System** - Full CPQ with products, line items, pricing, totals
-8. **Product Catalog Generator** - Creates 100+ products across multiple categories
+### Basic Usage
 
-### Utility Scripts (no AI)
-
-1. **verify_contacts.py** - Quick contact inspection
-2. **verify_companies.py** - Quick company inspection
-3. **verify_deals.py** - Quick deal inspection
-4. **verify_quotes.py** - Quick quote inspection
-5. **verify_products.py** - Quick product inspection
-
-All utilities provide fast, simple verification without AI overhead.
-
-## Key Features
-
-- AI-powered data validation and enrichment using Claude
-- Flexible single or bulk operation modes
-- Batch processing with automatic rate limiting
-- Comprehensive error handling and progress tracking
-- Production-ready code with professional documentation
-- Extensible architecture for multiple business systems
-- Quick utilities for data verification
-
-## Technology Stack
-
-- Python 3.12+
-- Anthropic Claude API (Claude Sonnet 4)
-- HubSpot CRM API
-- Modular design for easy system integration
-- Environment-based configuration for security
-
-## Quick Start
-
-### 1. Clone the Repository
+The system includes a working example in `main()`:
 ```bash
-git clone https://github.com/vinaygangidi/AgentOpsLab.git
-cd AgentOpsLab
+python agents/quote_cpq_agent.py
 ```
 
-### 2. Set Up Virtual Environment
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+This creates a deal with:
+- Enterprise Software License: $25,000 (10% discount) = $22,500
+- Professional Services: $15,000
+- Annual Support: $5,000
+- **Total: $42,500**
 
-### 3. Install Dependencies
-```bash
-pip install anthropic hubspot-api-client python-dotenv
-```
+### Custom Quote Creation
 
-### 4. Configure API Keys
-
-Create a `.env` file in the project root:
-```bash
-touch .env
-```
-
-Add your API keys:
-```
-ANTHROPIC_API_KEY=your-anthropic-key-here
-HUBSPOT_API_KEY=your-hubspot-key-here
-```
-
-### 5. Run an Agent
-```bash
-# AI-powered agents
-python agents/contact_creator.py
-python agents/bulk_contact_creator.py
-python agents/account_creator.py
-python agents/deal_creator.py
-python agents/complete_quote_system.py
-python agents/product_catalog_generator.py
-
-# Utility scripts
-python utilities/verify_contacts.py
-python utilities/verify_products.py
-```
-
-## Complete Quote System Example
-
-The most powerful feature - create complete, executable quotes:
-```bash
-python agents/complete_quote_system.py
-```
-
-**What it creates:**
-- 3 products in catalog (or reuses existing)
-- Deal with $42,500 total
-- 3 line items with pricing and discounts
-- All properly associated
-- Ready to send to customer
-
-## Documentation
-
-Comprehensive documentation for each component:
-
-### AI Agent Documentation
-- [Contact Creator](docs/contact_creator.md) - Data validation
-- [Real Contact Creator](docs/hubspot_contact_real.md) - Single record creation
-- [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations
-- [Flexible Account Creator](docs/account_creator.md) - Company creation
-- [Flexible Deal Creator](docs/deal_creator.md) - Deal/opportunity creation
-- [Flexible Quote Creator](docs/quote_creator.md) - Quote shell creation
-- [Complete Quote System](docs/complete_quote_system.md) - Full CPQ system
-- [Product Catalog Generator](docs/product_catalog_generator.md) - Product library
-
-### Utility Documentation
-- [Utilities](docs/utilities.md) - All verification scripts
-
-## Agent vs Utility - When to Use What
-
-### Use AI Agents When:
-- Creating new records
-- Bulk operations needed
-- Data enrichment required
-- Intelligent processing needed
-- Complex workflows
-
-### Use Utilities When:
-- Quickly checking if data exists
-- Inspecting recent records
-- Verifying API connectivity
-- Debugging issues
-- No AI needed
-
-## Configuration Options
-
-Each agent has configurable parameters:
+Edit the `products_to_quote` list in `main()`:
 ```python
-MODE = "single"              # "single" or "bulk"
-TOTAL_RECORDS = 1000        # For bulk mode
-ENRICH_WITH_CLAUDE = True   # Enable AI enrichment
-BATCH_SIZE = 100            # Records per API call
-RATE_LIMIT_DELAY = 0.5      # Seconds between batches
+products_to_quote = [
+    {
+        'product': {
+            'name': 'Your Product Name',
+            'description': 'Product description',
+            'price': 10000,
+            'sku': 'PROD-001',
+            'cost': 4000
+        },
+        'quantity': 2,
+        'price': 10000,  # Can override product price
+        'discount': 15   # 15% discount
+    }
+]
 ```
 
-## Performance
+## Function Reference
 
-### AI Agents (with Claude enrichment)
-- Single mode: 2-4 seconds per record
-- Bulk mode: 100 records in 5-10 seconds
+### create_product(product_data)
 
-### Utilities (no AI)
-- Instant response
-- 20 records displayed in <1 second
+Creates or retrieves a product from HubSpot catalog.
 
-### Complete Quote System
-- 3-product quote: ~5 seconds total
-- Includes product creation, deal creation, line items, associations
+**Parameters:**
+```python
+product_data = {
+    'name': 'Product Name',
+    'description': 'Product description',
+    'price': 10000,
+    'sku': 'UNIQUE-SKU',
+    'cost': 4000  # Cost of goods sold
+}
+```
 
-## Use Cases
+**Returns:** HubSpot product object or None
 
-### Current Implementation (CRM)
-- Import contacts from spreadsheets or databases
-- Migrate data between CRM systems
-- Enrich incomplete contact records with AI
-- Bulk create companies/accounts
-- Create sales opportunities and deals
-- Generate complete quotes with products and pricing
-- Build product catalogs
-- Quick data verification
+**Behavior:**
+- Attempts to create product
+- If SKU exists, searches for and returns existing product
+- Prevents duplicate products in catalog
 
-### Future Capabilities
-- ERP system automation
-- Legal document processing
-- Revenue recognition
-- Cross-system synchronization
-- Compliance automation
+---
+
+### create_deal_with_line_items(deal_data, line_items_data)
+
+Creates a complete deal with products and pricing.
+
+**Parameters:**
+```python
+deal_data = {
+    'dealname': 'Deal Name',
+    'dealstage': 'qualifiedtobuy',
+    'pipeline': 'default',
+    'closedate': '2026-05-15'
+}
+
+line_items_data = [
+    {
+        'product': { ... },  # Product info
+        'quantity': 2,
+        'price': 10000,
+        'discount': 10  # Optional
+    }
+]
+```
+
+**Returns:** (deal_object, list_of_line_items)
+
+**Process:**
+1. Creates/gets all products
+2. Creates the deal
+3. Creates line items with pricing
+4. Associates line items to deal
+5. Calculates and updates deal total
+
+---
+
+### enrich_deal_with_claude(deal_data, line_items_data)
+
+Uses Claude AI to suggest deal improvements.
+
+**Returns:**
+```python
+{
+    'CLOSEDATE': '2026-05-15',
+    'DEALSTAGE': 'presentationscheduled',
+    'PROBABILITY': '75',
+    'RECOMMENDATION': 'AI recommendation text'
+}
+```
+
+**AI Analysis:**
+- Appropriate close date (30-60 days out)
+- Suggested deal stage
+- Win probability assessment
+- Strategic recommendations
+
+---
+
+### create_complete_quote(deal_name, products_list, enrich=True)
+
+Main orchestration function. Creates complete quote with all components.
+
+**Example:**
+```python
+result = create_complete_quote(
+    deal_name="Q1 2026 Enterprise Deal - Acme Corp",
+    products_list=products_to_quote,
+    enrich=True
+)
+
+if result:
+    print(f"Deal ID: {result['deal'].id}")
+    print(f"Line Items: {len(result['line_items'])}")
+```
+
+## Example Output
+```
+======================================================================
+COMPLETE QUOTE SYSTEM - WITH PRODUCTS AND PRICING
+======================================================================
+
+Enriching deal with Claude AI...
+AI Recommendation: This is a solid enterprise deal...
+Enrichment complete
+
+======================================================================
+Creating complete deal: Enterprise Software Package - Acme Corp Q1 2026
+======================================================================
+
+Step 1: Managing products...
+Creating product: Enterprise Software License
+  Product created: ID 302161796800
+
+Step 2: Creating deal...
+  Deal created: ID 317208424154
+
+Step 3: Adding line items to deal...
+  Adding line item 1/3...
+    Line item added: $22500.00
+  Adding line item 2/3...
+    Line item added: $15000.00
+  Adding line item 3/3...
+    Line item added: $5000.00
+
+  Total deal amount: $42500.00
+  Deal amount updated
+
+======================================================================
+SUCCESS: Complete quote created!
+======================================================================
+Deal ID: 317208424154
+View in HubSpot: https://app.hubspot.com/contacts/deal/317208424154
+Total Line Items: 3
+======================================================================
+```
+
+## What Gets Created in HubSpot
+
+### 1. Products (in Catalog)
+- Name, description, SKU
+- Base price and cost
+- Reusable across multiple deals
+
+### 2. Deal
+- Deal name, stage, pipeline
+- Close date (AI-suggested or manual)
+- Total amount (calculated from line items)
+
+### 3. Line Items
+- Product reference
+- Quantity
+- Unit price (can differ from catalog price)
+- Discount percentage
+- Line total (calculated)
+- Associated to deal
+
+### 4. Associations
+- Line items → Products
+- Line items → Deal
+- All properly linked
+
+## Pricing Calculations
+
+### Line Item Total
+```
+Line Total = (Price × Quantity) × (1 - Discount%)
+```
+
+**Example:**
+- Price: $25,000
+- Quantity: 1
+- Discount: 10%
+- Line Total: $25,000 × 1 × 0.90 = $22,500
+
+### Deal Total
+```
+Deal Total = Sum of all Line Totals
+```
 
 ## HubSpot Requirements
 
 ### Required Scopes
 
-#### For Contacts:
-- `crm.objects.contacts.read`
-- `crm.objects.contacts.write`
-
-#### For Companies:
-- `crm.objects.companies.read`
-- `crm.objects.companies.write`
-
-#### For Deals:
-- `crm.objects.deals.read`
-- `crm.objects.deals.write`
-
-#### For Quotes:
-- `crm.objects.quotes.read`
-- `crm.objects.quotes.write`
-- `crm.schemas.quotes.read`
-- `crm.schemas.quotes.write`
-
-#### For Products & Line Items:
+Your HubSpot Private App needs:
 - `crm.objects.products.read`
 - `crm.objects.products.write`
+- `crm.objects.deals.read`
+- `crm.objects.deals.write`
 - `crm.objects.line_items.read`
 - `crm.objects.line_items.write`
 - `e-commerce`
 
-**Note:** After adding scopes, regenerate your access token!
+### HubSpot Plan
 
-## Security Best Practices
+Most features work on all HubSpot tiers. Product library is available on all plans.
 
-- API keys stored in `.env` file (never committed)
-- `.gitignore` configured to exclude sensitive files
-- Environment variables loaded at runtime
-- No hardcoded credentials
+## Common Use Cases
 
-## Cost Considerations
+### 1. Enterprise Software Sales
+```python
+products_to_quote = [
+    {'product': {..., 'price': 50000}, 'quantity': 1, 'discount': 15},
+    {'product': {..., 'price': 25000}, 'quantity': 1, 'discount': 0},
+    {'product': {..., 'price': 10000}, 'quantity': 1, 'discount': 0}
+]
+```
 
-### Claude API Costs (AI Agents Only)
+### 2. Professional Services Packages
+```python
+products_to_quote = [
+    {'product': {..., 'price': 15000}, 'quantity': 80, 'discount': 0},  # Hours
+    {'product': {..., 'price': 5000}, 'quantity': 1, 'discount': 0}     # Materials
+]
+```
 
-With enrichment enabled:
-- Per record: ~$0.001 - $0.002
-- 1,000 records: ~$1 - $2
-- 10,000 records: ~$10 - $20
+### 3. Hardware + Support Bundle
+```python
+products_to_quote = [
+    {'product': {..., 'price': 2000}, 'quantity': 10, 'discount': 10},  # Laptops
+    {'product': {..., 'price': 5000}, 'quantity': 1, 'discount': 0}     # Support
+]
+```
 
-**Utilities have ZERO Claude costs** (no AI)
+## Advanced Features
 
-### HubSpot API Costs
+### Product Reuse
 
-Free within plan limits.
+Products are created once and reused:
+- First run: Creates products
+- Subsequent runs: Finds and uses existing products
+- No duplicate SKUs in catalog
 
-## Extending to Other Systems
+### Discount Handling
 
-To add support for a new business system:
+Discounts are percentage-based:
+- Applied per line item
+- Calculated automatically
+- Stored in line item record
 
-1. Install the system's Python SDK
-2. Add API credentials to `.env`
-3. Copy an existing agent as template
-4. Update API calls to match new system
-5. Adjust field mappings
-6. Test in single mode first
-7. Deploy to bulk operations
+### AI Enrichment
+
+Claude provides:
+- Realistic close dates based on deal size
+- Appropriate deal stage suggestions
+- Win probability estimates
+- Strategic recommendations
+
+## Integration with Other Agents
+
+### Typical Workflow
+
+1. **Contact Creator** → Create contact
+2. **Account Creator** → Create company
+3. **Associate** contact to company
+4. **Quote CPQ Agent** → Create deal with products
+5. **Associate** deal to company and contact
+6. Send quote to customer
+7. Convert to order when won
 
 ## Troubleshooting
 
-### Common Issues
+### Products Not Creating
 
-**"Module not found" Error**
-```bash
-source venv/bin/activate
-pip install anthropic hubspot-api-client python-dotenv
-```
+**Issue:** Product creation fails with SKU error
 
-**"API key not found" Error**
-```bash
-cat .env  # Verify keys are present
-```
+**Cause:** SKU already exists in catalog
 
-**HubSpot Scope Errors**
-- Add required scopes to Private App
-- Regenerate access token
-- Update token in .env file
+**Solution:** This is expected! The code automatically finds and uses the existing product. This prevents duplicate products.
 
-## What We've Built
+### Line Items Not Appearing
 
-### Records Created
-- ✅ 900 contacts
-- ✅ Companies/accounts
-- ✅ 100 deals
-- ✅ 100 quotes
-- ✅ 100 products
-- ✅ Complete quotes with line items
+**Issue:** Deal created but no line items
 
-### Capabilities
-- ✅ Single & bulk operations
-- ✅ AI enrichment
-- ✅ Batch processing
-- ✅ Rate limiting
-- ✅ Error handling
-- ✅ Progress tracking
-- ✅ Complete CPQ workflow
-- ✅ Product catalog management
-- ✅ Quick verification utilities
+**Cause:** Association API error
 
-## Future Roadmap
+**Solution:** Check that all required scopes are enabled and token is regenerated after adding scopes.
 
-Planned enhancements:
+### Deal Total is Zero
 
-- **Multi-System Support**: ERP, legal, CPQ, revenue recognition
-- **Advanced Orchestration**: Multi-agent workflows
-- **Data Validation**: Deduplication and quality checks
-- **CSV Import/Export**: File-based operations
-- **Database Integration**: Direct database connectivity
-- **Webhook Triggers**: Event-driven automation
-- **Email Notifications**: Completion alerts
-- **Web Dashboard**: Visual monitoring
-- **API Endpoints**: REST API
-- **Association Management**: Link all objects
-- **Custom Objects**: Support for custom HubSpot objects
+**Issue:** Deal amount shows $0
 
-## Contributing
+**Cause:** Amount update failed
 
-This is a personal learning and automation project. Suggestions and feedback welcome.
+**Solution:** Amount updates automatically. If it fails, manually update in HubSpot UI.
 
-## License
+## Performance
 
-This project is for educational and business automation purposes.
+- Product creation: 1-2 seconds each
+- Deal creation: 1 second
+- Line item creation: 0.5 seconds each
+- Total time for 3-product quote: ~5 seconds
 
-## Contact
+## Cost Considerations
 
-Created by Vinay Gangidi
+### Claude API Costs
 
-Repository: https://github.com/vinaygangidi/AgentOpsLab
+With enrichment enabled:
+- Per quote: ~$0.001
+- 100 quotes: ~$0.10
+- 1000 quotes: ~$1.00
 
-## Acknowledgments
+### HubSpot Costs
 
-- Anthropic for Claude AI
-- HubSpot for CRM platform and API access
-- Python community for excellent libraries
+No additional costs. Uses standard API limits.
+
+## Limitations
+
+### Current Limitations
+
+1. **No Quote PDF Generation**
+   - Creates deal with line items
+   - Quote PDF must be generated in HubSpot UI
+
+2. **No Email Sending**
+   - Quote must be sent manually from HubSpot
+   - Or integrate with email API separately
+
+3. **No Custom Line Item Properties**
+   - Uses standard HubSpot line item fields only
+
+4. **No Tax Calculations**
+   - Totals are pre-tax
+   - Tax must be calculated separately
+
+## Future Enhancements
+
+Potential additions:
+- Bulk quote creation
+- Quote templates
+- Email sending integration
+- PDF generation
+- Tax calculations
+- Multi-currency support
+- Payment terms automation
+
+## Best Practices
+
+### 1. Product Naming
+
+Use descriptive, unique names:
+-  "Enterprise Software License - Annual"
+- "Software"
+
+### 2. SKU Management
+
+Use systematic SKU format:
+- "ENT-SW-2026-001"
+- "SKU1"
+
+### 3. Pricing Strategy
+
+Set realistic prices:
+- Include both price and cost
+- Apply discounts at line item level
+- Keep product catalog prices as "list price"
+
+### 4. Deal Naming
+
+Include customer and period:
+- "Q1 2026 Enterprise Package - Acme Corp"
+- "Deal 123"
+
+## Related Documentation
+
+- [Product Catalog Generator](product_catalog_generator.md)
+- [Deal Creator Agent](deal_creator_agent.md)
+- [Account Creator Agent](account_creator_agent.md)
+- [Email Intelligence Agent](email_intelligence_agent.md)
+
+## Support
+
+For issues or questions:
+1. Check HubSpot API scopes
+2. Verify token is regenerated after scope changes
+3. Review error messages for specific property errors
+4. Check utilities to verify data creation
