@@ -14,6 +14,7 @@ This platform currently includes agents for CRM automation (HubSpot implementati
 2. **Single Contact Creator** - Creates individual contacts with full AI enrichment
 3. **Bulk Contact Creator** - Processes hundreds or thousands of contacts in batches
 4. **Flexible Account Creator** - Creates companies in single or bulk mode (1 to millions of records)
+5. **Flexible Deal Creator** - Creates deals/opportunities in single or bulk mode with AI forecasting
 
 All agents use the same flexible architecture and can be adapted to work with other systems.
 
@@ -40,12 +41,14 @@ AgentOpsLab/
 │   ├── contact_creator.py      # Contact validation and testing
 │   ├── hubspot_contact_real.py # Single contact with AI enrichment
 │   ├── bulk_contact_creator.py # Bulk contact operations
-│   └── account_creator.py      # Flexible company/account creator
+│   ├── account_creator.py      # Flexible company/account creator
+│   └── deal_creator.py         # Flexible deal/opportunity creator
 ├── docs/                        # Comprehensive documentation
 │   ├── contact_creator.md
 │   ├── hubspot_contact_real.md
 │   ├── bulk_contact_creator.md
-│   └── account_creator.md
+│   ├── account_creator.md
+│   └── deal_creator.md
 ├── tools/                       # Utility functions (future)
 ├── data/                        # Data files (future)
 └── .env                         # API credentials (not in repo)
@@ -99,14 +102,24 @@ Test with contact validation:
 python agents/contact_creator.py
 ```
 
-Create a real record:
+Create a real contact:
 ```bash
 python agents/hubspot_contact_real.py
 ```
 
-Process bulk records:
+Process bulk contacts:
 ```bash
 python agents/bulk_contact_creator.py
+```
+
+Create companies:
+```bash
+python agents/account_creator.py
+```
+
+Create deals:
+```bash
+python agents/deal_creator.py
 ```
 
 ## Agent Architecture
@@ -143,6 +156,7 @@ Agents support both single and bulk operations:
 - Migrate data between CRM systems
 - Enrich incomplete contact records with AI
 - Bulk create companies/accounts
+- Create sales opportunities and deals
 - Data quality validation before import
 
 ### Future Capabilities
@@ -161,12 +175,13 @@ Detailed documentation for each agent is available in the `docs/` folder:
 - [Real Contact Creator](docs/hubspot_contact_real.md) - Single record creation
 - [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations
 - [Flexible Account Creator](docs/account_creator.md) - Single or bulk company creation
+- [Flexible Deal Creator](docs/deal_creator.md) - Single or bulk deal/opportunity creation
 
 ## Configuration Options
 
 Each agent has configurable parameters:
 
-### Contact and Account Creators
+### Contact, Account, and Deal Creators
 ```python
 MODE = "single"              # "single" or "bulk"
 TOTAL_RECORDS = 1000        # For bulk mode
@@ -243,7 +258,7 @@ Most business systems provide free API access within plan limits. Check your spe
 **"Module not found" Error**
 ```bash
 source venv/bin/activate
-pip install -r requirements.txt
+pip install anthropic hubspot-api-client python-dotenv pydantic langchain-anthropic
 ```
 
 **"API key not found" Error**
