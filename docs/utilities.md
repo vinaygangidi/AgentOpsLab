@@ -262,15 +262,15 @@ EMAIL CONVERSATION SYNTHESIZER
 Generating realistic email conversations for testing...
 
 1. Generating enterprise software deal conversation...
-✅ Saved: data/email_conversations/enterprise_software_deal.txt
+   Saved: data/email_conversations/enterprise_software_deal.txt
    Length: 13752 characters
 
 2. Generating hardware + services deal conversation...
-✅ Saved: data/email_conversations/hardware_services_deal.txt
+   Saved: data/email_conversations/hardware_services_deal.txt
    Length: 9834 characters
 
 3. Generating professional services deal conversation...
-✅ Saved: data/email_conversations/professional_services_deal.txt
+   Saved: data/email_conversations/professional_services_deal.txt
    Length: 11245 characters
 
 ======================================================================
@@ -311,20 +311,20 @@ These conversations can now be used with email_intelligence_agent.py
 ## When to Use Utilities vs Agents
 
 ### Use Utilities When:
-- ✅ Quickly checking if data exists
-- ✅ Inspecting recent records
-- ✅ Verifying API connectivity
-- ✅ Debugging issues
-- ✅ No AI enrichment needed
-- ✅ Generating test data
-- ✅ Instant results
+- Quickly checking if data exists
+- Inspecting recent records
+- Verifying API connectivity
+- Debugging issues
+- No AI enrichment needed
+- Generating test data
+- Instant results
 
 ### Use Agents When:
-- ✅ Creating new records
-- ✅ Bulk operations
-- ✅ Data enrichment needed
-- ✅ Intelligent processing required
-- ✅ Complex workflows
+- Creating new records
+- Bulk operations
+- Data enrichment needed
+- Intelligent processing required
+- Complex workflows
 
 ---
 
