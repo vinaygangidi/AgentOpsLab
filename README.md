@@ -8,11 +8,12 @@ This project demonstrates how to build production-ready AI agents that integrate
 
 ## What This Project Does
 
-This repository contains three AI agents:
+This repository contains four AI agents:
 
 1. **Contact Creator** - Tests contact validation with mock data
 2. **Real HubSpot Contact Creator** - Creates single contacts in HubSpot with AI enrichment
 3. **Bulk Contact Creator** - Creates hundreds of contacts in batches with rate limiting
+4. **Flexible Account Creator** - Creates companies in single or bulk mode (1 to 1,000,000+ records)
 
 All agents use Claude AI to intelligently process data before sending it to HubSpot.
 
@@ -111,7 +112,8 @@ Detailed documentation for each agent is available in the `docs/` folder:
 
 - [Contact Creator Agent](docs/contact_creator.md) - Mock data testing
 - [Real HubSpot Contact Creator](docs/hubspot_contact_real.md) - Single contact creation
-- [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations
+- [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations for contacts
+- [Flexible Account Creator](docs/account_creator.md) - Single or bulk company creation
 
 ## How It Works
 
