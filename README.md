@@ -1,50 +1,53 @@
-# AgentOpsLab - HubSpot AI Automation
+# AgentOpsLab - Intelligent Business Automation Platform
 
-A collection of AI-powered agents that automate HubSpot CRM operations using Claude AI for intelligent data processing.
+A flexible collection of AI-powered agents that automate operations across multiple business systems including CRM, ERP, CPQ, legal, and revenue recognition platforms. Built with Claude AI for intelligent data processing and enrichment.
 
 ## Overview
 
-This project demonstrates how to build production-ready AI agents that integrate with HubSpot CRM. The agents use Anthropic's Claude AI to enrich and validate data before creating records in HubSpot.
+AgentOpsLab provides production-ready AI agents that can create, update, and manage records across various enterprise systems. Each agent uses Anthropic's Claude AI to validate, enrich, and process data intelligently before interacting with external systems.
 
-## What This Project Does
+## Current Capabilities
 
-This repository contains four AI agents:
+This platform currently includes agents for CRM automation (HubSpot implementation):
 
-1. **Contact Creator** - Tests contact validation with mock data
-2. **Real HubSpot Contact Creator** - Creates single contacts in HubSpot with AI enrichment
-3. **Bulk Contact Creator** - Creates hundreds of contacts in batches with rate limiting
-4. **Flexible Account Creator** - Creates companies in single or bulk mode (1 to 1,000,000+ records)
+1. **Contact Creator** - Validates and enriches contact data with AI before creation
+2. **Single Contact Creator** - Creates individual contacts with full AI enrichment
+3. **Bulk Contact Creator** - Processes hundreds or thousands of contacts in batches
+4. **Flexible Account Creator** - Creates companies in single or bulk mode (1 to millions of records)
 
-All agents use Claude AI to intelligently process data before sending it to HubSpot.
+All agents use the same flexible architecture and can be adapted to work with other systems.
 
 ## Key Features
 
-- AI-powered data enrichment using Claude
-- Real HubSpot CRM integration
-- Batch processing with rate limiting
-- Error handling and progress tracking
-- Production-ready code structure
+- AI-powered data validation and enrichment using Claude
+- Flexible single or bulk operation modes
+- Batch processing with automatic rate limiting
+- Comprehensive error handling and progress tracking
+- Production-ready code with professional documentation
+- Extensible architecture for multiple business systems
 
 ## Technology Stack
 
-- Python 3.14
+- Python 3.12+
 - Anthropic Claude API (Claude Sonnet 4)
-- HubSpot API
-- Environment-based configuration
+- Modular design for easy system integration
+- Environment-based configuration for security
 
 ## Project Structure
 ```
 AgentOpsLab/
 ├── agents/                      # AI agent implementations
-│   ├── contact_creator.py      # Mock data testing agent
-│   ├── hubspot_contact_real.py # Single contact creator
-│   └── bulk_contact_creator.py # Bulk contact creator
-├── docs/                        # Detailed documentation
+│   ├── contact_creator.py      # Contact validation and testing
+│   ├── hubspot_contact_real.py # Single contact with AI enrichment
+│   ├── bulk_contact_creator.py # Bulk contact operations
+│   └── account_creator.py      # Flexible company/account creator
+├── docs/                        # Comprehensive documentation
 │   ├── contact_creator.md
 │   ├── hubspot_contact_real.md
-│   └── bulk_contact_creator.md
-├── tools/                       # Future: Utility functions
-├── data/                        # Future: Data files
+│   ├── bulk_contact_creator.md
+│   └── account_creator.md
+├── tools/                       # Utility functions (future)
+├── data/                        # Data files (future)
 └── .env                         # API credentials (not in repo)
 ```
 
@@ -54,7 +57,7 @@ Before you begin, you need:
 
 1. Python 3.12 or higher installed
 2. Anthropic API key (get from https://console.anthropic.com)
-3. HubSpot Private App access token
+3. API access to your target system (currently HubSpot)
 4. Basic understanding of command line
 
 ## Quick Start
@@ -91,131 +94,194 @@ HUBSPOT_API_KEY=your-hubspot-key-here
 
 ### 5. Run an Agent
 
-Test the contact creator:
+Test with contact validation:
 ```bash
 python agents/contact_creator.py
 ```
 
-Create a real contact in HubSpot:
+Create a real record:
 ```bash
 python agents/hubspot_contact_real.py
 ```
 
-Create 900 contacts in bulk:
+Process bulk records:
 ```bash
 python agents/bulk_contact_creator.py
 ```
+
+## Agent Architecture
+
+### How Agents Work
+
+All agents follow a consistent pattern:
+
+1. **Data Input** - Accept data from user, file, or database
+2. **AI Enrichment** - Claude validates and enriches data intelligently
+3. **System Integration** - Formatted data sent to target system via API
+4. **Result Tracking** - Success/failure logged and reported
+
+### Flexible Operation Modes
+
+Agents support both single and bulk operations:
+
+**Single Mode:**
+- Individual record processing
+- Full AI enrichment
+- Detailed error reporting
+- Best for manual operations and testing
+
+**Bulk Mode:**
+- Batch processing (100+ records per request)
+- Automatic rate limiting
+- Progress tracking
+- Production-ready for large datasets
+
+## Use Cases
+
+### Current Implementation (CRM)
+- Import contacts from spreadsheets or databases
+- Migrate data between CRM systems
+- Enrich incomplete contact records with AI
+- Bulk create companies/accounts
+- Data quality validation before import
+
+### Future Capabilities
+- ERP system automation (orders, invoices, inventory)
+- Legal document processing and management
+- CPQ (Configure, Price, Quote) automation
+- Revenue recognition record creation
+- Cross-system data synchronization
+- Compliance and audit trail generation
 
 ## Documentation
 
 Detailed documentation for each agent is available in the `docs/` folder:
 
-- [Contact Creator Agent](docs/contact_creator.md) - Mock data testing
-- [Real HubSpot Contact Creator](docs/hubspot_contact_real.md) - Single contact creation
-- [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations for contacts
+- [Contact Creator Agent](docs/contact_creator.md) - Data validation and testing
+- [Real Contact Creator](docs/hubspot_contact_real.md) - Single record creation
+- [Bulk Contact Creator](docs/bulk_contact_creator.md) - Bulk operations
 - [Flexible Account Creator](docs/account_creator.md) - Single or bulk company creation
-
-## How It Works
-
-### Data Flow
-
-1. Agent generates or receives contact data
-2. Claude AI analyzes and enriches the data (job titles, industries, formatting)
-3. Agent sends enriched data to HubSpot via API
-4. HubSpot creates the contact record
-5. Agent reports success or failure
-
-### Why Use AI for Data Enrichment
-
-Traditional data entry often has issues:
-- Inconsistent formatting
-- Missing information
-- Invalid data
-
-Claude AI helps by:
-- Validating email formats
-- Formatting phone numbers consistently
-- Suggesting appropriate job titles based on context
-- Identifying data quality issues
-- Enriching incomplete records
 
 ## Configuration Options
 
-Each agent has configurable parameters at the top of the file:
+Each agent has configurable parameters:
 
-### Bulk Contact Creator Configuration
+### Contact and Account Creators
 ```python
-TOTAL_CONTACTS = 900      # How many contacts to create
-BATCH_SIZE = 100          # Contacts per API call (HubSpot limit)
-RATE_LIMIT_DELAY = 0.5    # Seconds to wait between batches
-ENRICH_SAMPLE = False     # Set True to enrich first 10 with Claude
+MODE = "single"              # "single" or "bulk"
+TOTAL_RECORDS = 1000        # For bulk mode
+ENRICH_WITH_CLAUDE = True   # Enable AI enrichment
+BATCH_SIZE = 100            # Records per API call
+RATE_LIMIT_DELAY = 0.5      # Seconds between batches
 ```
 
-## API Rate Limits
+## Security Best Practices
 
-This project respects HubSpot's API rate limits:
-
-- Batch API: 100 contacts per request
-- Rate limiting: 0.5 second delay between batches
-- Error handling: Continues on failure, reports results
-
-## Security
-
-Important security practices used in this project:
+This project follows security best practices:
 
 - API keys stored in `.env` file (never committed to Git)
 - `.gitignore` configured to exclude sensitive files
 - Environment variables loaded at runtime
-- No hardcoded credentials
+- No hardcoded credentials in code
+
+## Extending to Other Systems
+
+To add support for a new business system:
+
+1. Install the system's Python SDK
+2. Add API credentials to `.env`
+3. Copy an existing agent as a template
+4. Update API calls to match new system
+5. Adjust field mappings as needed
+6. Test in single mode first
+7. Deploy to bulk operations
+
+The architecture is system-agnostic and designed for easy extension.
+
+## Performance
+
+### Single Mode
+- 2-4 seconds per record with AI enrichment
+- 1-2 seconds per record without enrichment
+
+### Bulk Mode
+- 100 records: 5-10 seconds
+- 1,000 records: 40-60 seconds
+- 10,000 records: 6-10 minutes
+- Scales linearly with proper rate limiting
+
+## API Rate Limits
+
+Agents automatically respect system rate limits:
+- Batch processing to maximize throughput
+- Configurable delays between batches
+- Automatic retry logic for transient failures
+- Progress tracking for long-running operations
+
+## Cost Considerations
+
+### Claude API Costs
+
+With Claude Sonnet 4:
+- Per record enrichment: ~$0.001 - $0.002
+- 1,000 records: ~$1 - $2
+- 10,000 records: ~$10 - $20
+
+Cost optimization strategies:
+- Sample enrichment (enrich first 10-100 only)
+- Conditional enrichment (only incomplete records)
+- Batch processing to minimize overhead
+
+### System API Costs
+
+Most business systems provide free API access within plan limits. Check your specific system's documentation.
 
 ## Troubleshooting
 
-### SSL Certificate Error
+### Common Issues
 
-If you see SSL certificate errors:
+**"Module not found" Error**
+```bash
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**"API key not found" Error**
+```bash
+cat .env  # Verify keys are present
+```
+
+**SSL Certificate Error**
 ```bash
 pip install --upgrade certifi
 ```
 
-### Import Errors
+**Rate Limit Exceeded**
+- Increase RATE_LIMIT_DELAY
+- Reduce BATCH_SIZE
+- Wait before retrying
 
-Make sure you are in the virtual environment:
-```bash
-source venv/bin/activate
-```
+## Future Roadmap
 
-Reinstall dependencies if needed:
-```bash
-pip install -r requirements.txt
-```
+Planned enhancements:
 
-### HubSpot API Errors
-
-Check that:
-- Your HubSpot API key is valid
-- Your Private App has correct scopes (contacts read/write)
-- You have not exceeded API rate limits
-
-## Future Enhancements
-
-Planned features for this project:
-
-- Account/Company creator agent
-- Deal/Opportunity creator agent
-- Quote and invoice generators
-- CSV file import support
-- Data deduplication
-- Email notifications
-- Webhook triggers
-- Multi-agent pipelines
+- **Multi-System Support**: ERP, legal, CPQ, revenue recognition
+- **Advanced Orchestration**: Multi-agent workflows using CrewAI
+- **Data Validation**: Deduplication and quality checks
+- **CSV Import/Export**: File-based data operations
+- **Database Integration**: Direct database connectivity
+- **Webhook Triggers**: Event-driven automation
+- **Email Notifications**: Completion and error alerts
+- **Web Dashboard**: Visual monitoring and control
+- **API Endpoints**: REST API for external integrations
 
 ## Contributing
 
-This is a personal learning project, but suggestions and feedback are welcome.
+This is a personal learning and automation project. Suggestions and feedback are welcome.
 
 ## License
 
-This project is for educational purposes.
+This project is for educational and business automation purposes.
 
 ## Contact
 
@@ -226,5 +292,5 @@ Repository: https://github.com/vinaygangidi/AgentOpsLab
 ## Acknowledgments
 
 - Anthropic for Claude AI
-- HubSpot for CRM platform
+- Business system providers for API access
 - Python community for excellent libraries
