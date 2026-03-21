@@ -22,3 +22,6 @@ __pycache__/
 *.log
 agentopslab-landing/
 agentopslab-landing/
+.DS_Store
+.DS_Store
+.DS_Store

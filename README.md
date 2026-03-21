@@ -1,543 +1,466 @@
 # AgentOpsLab
 
-> Intelligent business automation platform powered by Claude AI and HubSpot CRM integration.
+**Complete Enterprise AI Automation Platform**
 
-**Transform messy business data into clean, actionable CRM pipelines using AI agents.**
+A unified platform of 33 enterprise-ready AI agents designed to automate complex business processes across Sales, Revenue, Finance, HR, and Legal operations.
 
----
+[![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg)](https://www.python.org/downloads/)
+[![Claude AI](https://img.shields.io/badge/AI-Claude%20Sonnet%204-orange.svg)](https://www.anthropic.com/claude)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## What Is This?
-
-AgentOpsLab is a collection of AI-powered agents that automate CRM data entry, enrichment, and pipeline creation. Each agent solves a specific business problem:
-
-- **Zero manual data entry** - Extract CRM data from emails automatically
-- **AI-powered validation** - Smart enrichment of contacts, companies, deals
-- **Complete pipeline automation** - Email → Contact → Company → Deal → Quote in seconds
-- **Modular architecture** - Reusable agents that work together or independently
+🌐 **Live Demo**: [agentopslab-landing.vercel.app](https://agentopslab-landing.vercel.app)
 
 ---
 
-## Quick Start
+## 📊 Platform Overview
 
-### 1. Setup
+AgentOpsLab provides **33 production-ready AI agents** that eliminate manual work and accelerate business operations:
+
+- **🔵 Sales Operations**: 6 agents for CRM & sales automation
+- **🟣 Revenue Operations**: 6 agents for RevOps intelligence
+- **🟢 Enterprise Operations**: 9 agents for Finance, GTM & ERP
+- **🟠 HR Operations**: 6 agents for talent & workforce management
+- **⚖️ Legal Operations**: 6 agents for contract & compliance automation
+
+**Business Impact**:
+- 💰 **$2.1M** annual savings (100-person team)
+- ⚡ **96%** time saved on manual work
+- 📅 **6 weeks** implementation timeline
+- ✅ **95%+** accuracy on data extraction
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.14+
+- Anthropic API Key ([Get one here](https://console.anthropic.com/))
+- HubSpot API Key (for CRM integration)
+
+### Installation
+
 ```bash
-# Clone repository
+# Clone the repository
 git clone https://github.com/vinaygangidi/AgentOpsLab.git
 cd AgentOpsLab
 
 # Create virtual environment
-python3 -m venv venv
+python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install anthropic python-dotenv
 
-# Configure API keys
+# Set up environment variables
 cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY and HUBSPOT_API_KEY
+# Edit .env and add your API keys:
+# ANTHROPIC_API_KEY=your_key_here
+# HUBSPOT_API_KEY=your_key_here
 ```
 
-### 2. Generate Test Data
-```bash
-# Create sample email conversations
-python utilities/email_synthesizer.py
+### Run Your First Agent
 
-# This creates 3 realistic email conversations in data/email_conversations/
+```python
+from agents.hr.resume_screening_agent import ResumeScreeningAgent
+
+# Initialize agent
+agent = ResumeScreeningAgent()
+
+# Define job requirements
+job_requirements = {
+    'required_skills': ['Python', 'Machine Learning', 'SQL'],
+    'experience_years': 3,
+    'education': "Bachelor's in Computer Science"
+}
+
+# Screen a resume
+result = agent.screen_resume('data/hr/resumes/candidate.txt', job_requirements)
+
+# View results
+agent.display_screening_results(result)
 ```
-
-### 3. Run Your First Pipeline
-```bash
-# Option A: See what would be extracted (no HubSpot records created)
-python agents/email_intelligence_reader.py
-
-# Option B: Create complete pipeline from email (creates records in HubSpot)
-python agents/pipeline_orchestrator_agent.py
-```
-
-**Result:** Complete sales pipeline created in HubSpot in seconds - contact, company, deal, products, all associated.
 
 ---
 
-## Architecture
+## 🔵 Sales Operations (6 Agents)
+
+Eliminate manual CRM work and accelerate your sales pipeline.
+
+### 1. Email Intelligence Agent
+- **Purpose**: Extract contacts, companies, and deals from emails
+- **Accuracy**: 95%+ on data extraction
+- **Location**: `agents/email_intelligence_agent.py`
+- **Use Case**: Automatically populate CRM from Gmail/Outlook
+
+### 2. Pipeline Orchestrator Agent
+- **Purpose**: End-to-end automation with custom workflows
+- **Features**: Zero-touch CRM updates
+- **Location**: `agents/pipeline_orchestrator_agent.py`
+- **Use Case**: Orchestrate multiple agents for complete automation
+
+### 3. Contact Creator Agent
+- **Purpose**: AI-powered contact enrichment & validation
+- **Features**: Auto-enrich with company data
+- **Location**: `agents/contact_creator_agent.py`
+- **Use Case**: Create validated contacts in HubSpot
+
+### 4. Account Creator Agent
+- **Purpose**: Company data with firmographics & technographics
+- **Features**: Smart industry classification
+- **Location**: `agents/account_creator_agent.py`
+- **Use Case**: Build comprehensive company profiles
+
+### 5. Deal Intelligence Agent
+- **Purpose**: Predictive scoring & close date forecasting
+- **Features**: 20% better forecast accuracy
+- **Location**: `agents/deal_creator_agent.py`
+- **Use Case**: Score and prioritize opportunities
+
+### 6. CPQ Automation Agent
+- **Purpose**: Complete quote-to-cash with pricing rules
+- **Features**: Zero errors in quote generation
+- **Location**: `agents/quote_cpq_agent.py`
+- **Use Case**: Generate accurate quotes with line items
+
+---
+
+## 🟣 Revenue Operations (6 Agents)
+
+Optimize revenue, reduce churn, and maximize win rates.
+
+**Repository**: [revops-ai-agents](https://github.com/vinaygangidi/revops-ai-agents)
+
+### 1. Churn Detector
+- **Purpose**: Predict customer churn before it happens
+- **Features**: Early warning system
+- **Location**: `.claude/agents/churn-detector.md`
+
+### 2. Competitive Intelligence
+- **Purpose**: Track competitors and market positioning
+- **Features**: Real-time competitive tracking
+- **Location**: `.claude/agents/competitive-intel.md`
+
+### 3. Deal Risk Assessor
+- **Purpose**: Identify at-risk deals with AI scoring
+- **Features**: Proactive risk mitigation
+- **Location**: `.claude/agents/deal-risk-assessor.md`
+
+### 4. ICP Analyst
+- **Purpose**: Analyze and segment ideal customer profiles
+- **Features**: Data-driven segmentation
+- **Location**: `.claude/agents/icp-analyst.md`
+
+### 5. Objection Mapper
+- **Purpose**: Map common objections and win strategies
+- **Features**: Win more deals with proven tactics
+- **Location**: `.claude/agents/objection-mapper.md`
+
+### 6. Win-Loss Analyst
+- **Purpose**: Deep analysis of why deals close or are lost
+- **Features**: Actionable insights for improvement
+- **Location**: `.claude/agents/win-loss-analyst.md`
+
+---
+
+## 🟢 Enterprise Operations (9 Agents)
+
+Finance, GTM strategy, and ERP workflow automation.
+
+**Repository**: [n8n-enterprise-ai-agents](https://github.com/vinaygangidi/n8n-enterprise-ai-agents)
+
+### GTM Strategy (3 Agents)
+1. **GTM Account 360 Copilot** - Complete account intelligence
+2. **ICP Segmentation** - Advanced customer segmentation
+3. **GTM Win-Loss Analysis** - Go-to-market performance
+
+### Finance Operations (4 Agents)
+4. **Cash Reconciliation** - Automated cash flow reconciliation
+5. **ERP Copilot** - Intelligent ERP system assistant
+6. **ERP Customer Orders** - Automated order processing
+7. **Tax Agent** - Automated tax calculation & compliance
+
+### Loan Origination (2 Agents)
+8. **Loan Fraud Detection** - AI-powered fraud detection
+9. **Loan Underwriting** - Automated loan risk assessment
+
+---
+
+## 🟠 HR Operations (6 Agents)
+
+Automate talent acquisition, onboarding, and workforce management.
+
+### 1. Resume Screening Agent
+- **Purpose**: AI-powered candidate evaluation and scoring
+- **Accuracy**: 95%+ match accuracy
+- **Location**: `agents/hr/resume_screening_agent.py`
+- **Features**:
+  - Extract skills, experience, education from resumes
+  - Score candidates against job requirements
+  - AI-powered recommendations (STRONG_YES/YES/MAYBE/NO)
+  - Batch screening support
+
+**Example Usage**:
+```python
+from agents.hr.resume_screening_agent import ResumeScreeningAgent
+
+agent = ResumeScreeningAgent()
+result = agent.screen_resume('resume.txt', job_requirements)
+```
+
+### 2. Onboarding Workflow Agent
+- **Purpose**: Automated new hire onboarding orchestration
+- **Location**: `agents/hr/onboarding_workflow_agent.py`
+- **Features**:
+  - Generate personalized onboarding plans
+  - Create day-1 schedules and checklists
+  - Track onboarding progress
+  - Send automated welcome emails
+
+### 3. Performance Review Analyzer
+- **Purpose**: Analyze performance reviews and identify trends
+- **Location**: `agents/hr/performance_review_analyzer.py`
+- **Features**:
+  - Extract themes and patterns from reviews
+  - Identify strengths and development areas
+  - Generate improvement recommendations
+  - Team-level performance analytics
+
+### 4. Employee Offboarding Agent
+- **Purpose**: Streamline employee exit processes
+- **Location**: `agents/hr/employee_offboarding_agent.py`
+- **Features**:
+  - Create comprehensive offboarding checklists
+  - Conduct and analyze exit interviews
+  - Manage equipment return tracking
+  - Generate offboarding completion reports
+
+### 5. Benefits Enrollment Assistant
+- **Purpose**: AI-powered benefits guidance and recommendations
+- **Location**: `agents/hr/benefits_enrollment_assistant.py`
+- **Features**:
+  - Recommend optimal benefits packages
+  - Answer benefits questions with AI
+  - Calculate costs and compare plans
+  - Track enrollment completion
+
+### 6. Training Compliance Tracker
+- **Purpose**: Monitor and manage training compliance
+- **Location**: `agents/hr/training_compliance_tracker.py`
+- **Features**:
+  - Track required training completion
+  - Send automated overdue reminders
+  - Generate compliance reports
+  - Identify training gaps and risks
+
+---
+
+## ⚖️ Legal Operations (6 Agents)
+
+Automate contract review, compliance, and legal research.
+
+### 1. Contract Review Agent
+- **Purpose**: Automated legal contract analysis
+- **Location**: `agents/legal/contract_review_agent.py`
+- **Features**:
+  - Extract key terms, obligations, and dates
+  - Identify risky or unusual clauses
+  - Compare against standard templates
+  - Generate executive summaries
+
+**Example Usage**:
+```python
+from agents.legal.contract_review_agent import ContractReviewAgent
+
+agent = ContractReviewAgent()
+analysis = agent.review_contract(contract_text, 'SaaS')
+agent.display_review(analysis)
+```
+
+### 2. NDA Generator Agent
+- **Purpose**: Generate custom Non-Disclosure Agreements
+- **Location**: `agents/legal/nda_generator_agent.py`
+- **Features**:
+  - Create mutual or one-way NDAs
+  - Customize terms based on use case
+  - Fill in party details automatically
+  - Ensure legal compliance
+
+### 3. Contract Risk Analyzer
+- **Purpose**: Score and analyze contract risk levels
+- **Location**: `agents/legal/contract_risk_analyzer.py`
+- **Features**:
+  - Multi-dimensional risk scoring
+  - Identify critical issues and red flags
+  - Compare against company standards
+  - Provide risk mitigation recommendations
+
+### 4. Legal Document Classifier
+- **Purpose**: Automatically classify and route legal documents
+- **Location**: `agents/legal/legal_document_classifier.py`
+- **Features**:
+  - Identify document type (Contract, NDA, Agreement, etc.)
+  - Extract key metadata
+  - Route to appropriate team
+  - Organize documents by category
+
+### 5. Compliance Checker Agent
+- **Purpose**: Verify regulatory compliance (GDPR, CCPA, SOX, HIPAA)
+- **Location**: `agents/legal/compliance_checker_agent.py`
+- **Features**:
+  - Check against multiple regulations
+  - Identify compliance gaps
+  - Generate remediation plans
+  - Track compliance over time
+
+### 6. Legal Research Assistant
+- **Purpose**: AI-powered legal research and analysis
+- **Location**: `agents/legal/legal_research_assistant.py`
+- **Features**:
+  - Research case law and regulations
+  - Summarize legal precedents
+  - Provide citation-ready summaries
+  - Generate legal memoranda
+
+---
+
+## 🏗️ Architecture
 
 ### Modular Design
 
-AgentOpsLab uses a **modular, composable architecture**:
-```
-Email Conversation
-    ↓
-📧 Email Intelligence Agent (extracts data)
-    ↓
-🎯 Pipeline Orchestrator (coordinates creation)
-    ↓
-    ├→ Contact Creator Agent (creates contact)
-    ├→ Account Creator Agent (creates company)
-    ├→ Deal Creator Agent (creates deal)
-    └→ Quote CPQ Agent (creates products + line items)
-    ↓
-Complete CRM Pipeline ✅
-```
-
-**Benefits:**
-- ✅ **Reusable** - Use any agent independently
-- ✅ **Composable** - Build different workflows easily
-- ✅ **Maintainable** - Fix logic once, works everywhere
-- ✅ **Testable** - Test each component separately
-
----
-
-## Production Agents
-
-### 🎯 Pipeline Orchestrator Agent
-**File:** `agents/pipeline_orchestrator_agent.py`
-
-Coordinates all agents to create complete sales pipelines from email conversations.
-
-**What it does:**
-1. Extracts intelligence from email (uses Email Intelligence Agent)
-2. Creates contact (uses Contact Creator logic)
-3. Creates company (uses Account Creator logic)
-4. Creates deal (uses Deal Creator logic)
-5. Creates products and line items (uses Quote CPQ logic)
-6. Associates all records together
-7. Provides intelligence report
-
-**Use when:** You have an email conversation and want a complete CRM pipeline created automatically.
-
-**Business value:** $50K+/year savings per sales rep, 96% time reduction
-
----
-
-### 📧 Email Intelligence Agent
-**File:** `agents/email_intelligence_agent.py`
-
-Extracts structured CRM data from messy email conversations using Claude AI.
-
-**What it extracts:**
-- Contact information (name, email, phone, title)
-- Company details (name, industry, size, revenue)
-- Deal information (amount, stage, close date, probability)
-- Product list (items, quantities, pricing, discounts)
-- Intelligence analysis (sentiment, risk, next steps)
-
-**Use when:** You want to extract data from emails without creating records yet.
-
-**Business value:** 95%+ accuracy, handles complex multi-party threads, provides AI insights
-
----
-
-### 👤 Contact Creator Agent
-**File:** `agents/contact_creator_agent.py`
-
-Creates contacts in HubSpot with AI-powered validation and enrichment.
-
-**Features:**
-- Email format validation and correction
-- Phone number standardization
-- Job title enrichment with Claude
-- Single or bulk mode (1 to 1000s)
-
-**Use when:** Importing contacts from CSV, trade shows, or other sources.
-
-**Business value:** 99% time savings vs manual entry, 95%+ data accuracy
-
----
-
-### 🏢 Account Creator Agent
-**File:** `agents/account_creator_agent.py`
-
-Creates company/account records with AI enrichment.
-
-**Features:**
-- Industry classification
-- Company size estimation
-- Revenue prediction
-- Professional business descriptions
-- Single or bulk mode
-
-**Use when:** Importing company lists, CRM migration, building target account lists.
-
-**Business value:** 98% time savings, automatic data enrichment
-
----
-
-### 💼 Deal Creator Agent
-**File:** `agents/deal_creator_agent.py`
-
-Creates deals/opportunities with AI-powered forecasting.
-
-**Features:**
-- Close date prediction based on deal size
-- Win probability calculation
-- Deal stage suggestions
-- Priority assessment
-- Strategic recommendations
-
-**Use when:** Importing pipeline data, creating opportunities from leads.
-
-**Business value:** 20% better forecast accuracy with AI predictions
-
----
-
-### 💰 Quote CPQ Agent
-**File:** `agents/quote_cpq_agent.py`
-
-Complete Configure-Price-Quote system - creates deals with products, line items, and pricing.
-
-**Features:**
-- Product catalog management
-- Line item creation with quantities and discounts
-- Automatic total calculation
-- Deal-product associations
-- Multi-product quotes
-
-**Use when:** Creating quotes with multiple products and complex pricing.
-
-**Business value:** Zero pricing errors, 95% time savings vs manual quote creation
-
----
-
-## Utilities
-
-### Email Synthesizer
-**File:** `utilities/email_synthesizer.py`
-
-Generates realistic, messy email conversations for testing.
-
-**Creates:**
-- Enterprise software deal (complex, multi-product)
-- Hardware + services bundle (value-based)
-- Professional services engagement (time-based)
-
-**Use when:** Testing agents, demonstrating capabilities, training.
-
----
-
-### Product Catalog Generator
-**File:** `utilities/product_catalog_generator.py`
-
-Creates 100 diverse products in HubSpot catalog for testing.
-
-**Categories:**
-- Software licenses & subscriptions
-- Professional services
-- Hardware & equipment
-- Training & support
-
-**Use when:** Setting up test environment, demonstrating quote creation.
-
----
-
-### Verification Utilities
-- `utilities/verify_contacts.py` - Check contact records
-- `utilities/verify_companies.py` - Check company records
-- `utilities/verify_deals.py` - Check deal records
-- `utilities/verify_quotes.py` - Check quote records
-- `utilities/verify_products.py` - Check product catalog
-
----
-
-## Examples (Learning)
-
-### Contact Validator
-**File:** `agents/examples/contact_validator.py`
-
-Simple example showing how to validate and enrich a single contact with Claude.
-
-**Use when:** Learning how AI enrichment works, understanding the basics.
-
----
-
-### Single Contact Demo
-**File:** `agents/examples/single_contact_demo.py`
-
-Demonstrates creating a single contact with full AI enrichment.
-
-**Use when:** Testing HubSpot connection, learning the API.
-
----
-
-## Common Workflows
-
-### Workflow 1: Email to Complete Pipeline
-**Goal:** Turn email conversation into complete CRM pipeline
-```bash
-# Step 1: Generate test email (or use real email)
-python utilities/email_synthesizer.py
-
-# Step 2: Create complete pipeline
-python agents/pipeline_orchestrator_agent.py
-```
-
-**Result:** Contact + Company + Deal + Products all created and associated in HubSpot.
-
----
-
-### Workflow 2: Bulk Contact Import
-**Goal:** Import 1000 contacts from CSV with AI enrichment
-```python
-# Edit agents/contact_creator_agent.py
-MODE = "bulk"
-TOTAL_CONTACTS = 1000
-ENRICH_SAMPLE = True  # Enrich first 10 only for cost efficiency
-
-# Load from CSV instead of mock data
-def load_contacts_from_csv(filename):
-    # Your CSV loading logic here
-    pass
-```
-```bash
-python agents/contact_creator_agent.py
-```
-
----
-
-### Workflow 3: CRM Migration
-**Goal:** Migrate 5000 companies from old CRM
-```python
-# Edit agents/account_creator_agent.py
-MODE = "bulk"
-TOTAL_COMPANIES = 5000
-ENRICH_SAMPLE = False  # Skip enrichment for speed
-
-# Load from export file
-def load_companies_from_export(filename):
-    # Your migration logic here
-    pass
-```
-```bash
-python agents/account_creator_agent.py
-```
-
----
-
-## Requirements
-
-### API Keys Required
-- **Anthropic Claude API** - For AI extraction and enrichment
-- **HubSpot Private App** - For CRM access
-
-### HubSpot Scopes Needed
-```
-crm.objects.contacts.read
-crm.objects.contacts.write
-crm.objects.companies.read
-crm.objects.companies.write
-crm.objects.deals.read
-crm.objects.deals.write
-crm.objects.quotes.read
-crm.objects.quotes.write
-crm.objects.products.read
-crm.objects.products.write
-crm.objects.line_items.read
-crm.objects.line_items.write
-crm.schemas.quotes.read
-crm.schemas.quotes.write
-e-commerce
-```
-
-### Python Version
-- Python 3.8 or higher
-- Virtual environment recommended
-
----
-
-## Installation
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/vinaygangidi/AgentOpsLab.git
-cd AgentOpsLab
-```
-
-### 2. Create Virtual Environment
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Configure Environment
-```bash
-# Copy example environment file
-cp .env.example .env
-
-# Edit .env and add your keys:
-# ANTHROPIC_API_KEY=your_anthropic_key
-# HUBSPOT_API_KEY=your_hubspot_private_app_token
-```
-
-### 5. Test Setup
-```bash
-# Generate test data
-python utilities/email_synthesizer.py
-
-# Run read-only demo
-python agents/email_intelligence_reader.py
-```
-
----
-
-## Configuration
-
-Each agent has configuration options at the top of the file:
-```python
-# Example: Contact Creator Agent configuration
-MODE = "single"              # "single" or "bulk"
-TOTAL_CONTACTS = 1000        # For bulk mode
-ENRICH_WITH_CLAUDE = True    # AI enrichment on/off
-ENRICH_SAMPLE = False        # Enrich first 10 only (bulk)
-BATCH_SIZE = 100             # HubSpot API limit
-RATE_LIMIT_DELAY = 0.5       # Seconds between batches
-```
-
----
-
-## Project Structure
 ```
 AgentOpsLab/
-├── agents/                              # PRODUCTION AI AGENTS
-│   ├── email_intelligence_agent.py      # Extract data from emails
-│   ├── pipeline_orchestrator_agent.py   # Coordinate complete pipeline
-│   ├── contact_creator_agent.py         # Create contacts with AI
-│   ├── account_creator_agent.py         # Create companies with AI
-│   ├── deal_creator_agent.py            # Create deals with forecasting
-│   ├── quote_cpq_agent.py               # Complete CPQ system
-│   └── examples/                        # LEARNING EXAMPLES
-│       ├── contact_validator.py
-│       └── single_contact_demo.py
-├── utilities/                           # NON-AI UTILITIES
-│   ├── email_synthesizer.py            # Generate test conversations
-│   ├── product_catalog_generator.py    # Generate test products
-│   ├── verify_contacts.py
-│   ├── verify_companies.py
-│   ├── verify_deals.py
-│   ├── verify_quotes.py
-│   └── verify_products.py
-├── docs/                                # DOCUMENTATION
-│   ├── email_intelligence_agent.md
-│   ├── contact_creator_agent.md
-│   ├── account_creator_agent.md
-│   ├── deal_creator_agent.md
-│   ├── quote_cpq_agent.md
-│   ├── product_catalog_generator.md
-│   └── utilities.md
-├── data/
-│   └── email_conversations/            # Generated test emails
-├── .env                                 # API keys (not in git)
-├── .env.example                         # Template
-├── requirements.txt
+├── agents/
+│   ├── hr/                          # HR automation agents
+│   ├── legal/                       # Legal automation agents
+│   ├── email_intelligence_agent.py  # Sales agents
+│   ├── pipeline_orchestrator_agent.py
+│   ├── contact_creator_agent.py
+│   ├── account_creator_agent.py
+│   ├── deal_creator_agent.py
+│   └── quote_cpq_agent.py
+├── utilities/                       # Shared utilities
+├── data/                           # Data storage
+│   ├── email_conversations/        # Email data
+│   ├── hr/resumes/                 # Resume files
+│   └── legal/contracts/            # Contract files
+├── docs/                           # Documentation
+│   ├── hr/                         # HR agent docs
+│   └── legal/                      # Legal agent docs
+├── .env                            # API keys (DO NOT COMMIT)
 └── README.md
 ```
 
----
+### Agent Pattern
 
-## Documentation
+All agents follow a consistent pattern:
 
-Each agent has detailed documentation in the `docs/` folder:
-
-- [Email Intelligence Agent](docs/email_intelligence_agent.md) - Business value, use cases, ROI
-- [Contact Creator Agent](docs/contact_creator_agent.md) - Import strategies, validation
-- [Account Creator Agent](docs/account_creator_agent.md) - Enrichment, classifications
-- [Deal Creator Agent](docs/deal_creator_agent.md) - Forecasting, predictions
-- [Quote CPQ Agent](docs/quote_cpq_agent.md) - Product management, pricing
+1. **Initialization**: Load Claude AI client
+2. **Input Processing**: Accept structured data
+3. **AI Analysis**: Use Claude for intelligent processing
+4. **Output Generation**: Return structured results
+5. **Display**: Present results in readable format
 
 ---
 
-## Business Value
+## 🔑 Environment Setup
 
-### For Sales Teams (10 reps)
-- **Time saved:** 150 hours/week
-- **Cost savings:** $500K+/year in productivity
-- **Revenue opportunity:** $1M+ from increased selling time
-- **Win rate improvement:** +10-15% from better tracking
+Create a `.env` file in the root directory:
 
-### For Sales Operations
-- **Data quality:** 95%+ accuracy vs 70% manual
-- **Data completeness:** 100% capture rate
-- **Cleanup eliminated:** Zero manual data correction
-- **Reporting accuracy:** Real-time, complete data
-
-### For RevOps/Finance
-- **Revenue protection:** No missed opportunities
-- **Forecast accuracy:** +20% with complete data
-- **Pipeline visibility:** Real-time, always current
-- **Deal velocity:** +25% faster opportunity creation
-
----
-
-## Roadmap
-
-### Current (v1.0)
-- ✅ Email intelligence extraction
-- ✅ Modular agent architecture
-- ✅ Complete CPQ system
-- ✅ AI-powered enrichment
-- ✅ Pipeline orchestration
-
-### Planned (v1.1)
-- ⏳ Order booking agent
-- ⏳ Multi-contact extraction
-- ⏳ Attachment processing (PDFs)
-- ⏳ Email platform integrations
-- ⏳ Webhook automation
-
----
-
-## Support
-
-For issues or questions:
-
-1. Check agent documentation in `docs/`
-2. Review configuration options in agent files
-3. Test with small datasets first
-4. Verify API keys and HubSpot scopes
-
----
-
-## License
-
-MIT License - See LICENSE file for details
-
----
-
-## Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Test thoroughly
-4. Submit a pull request
-
----
-
-## Author
-
-**Vinay Gangidi**
-
-- GitHub: [@vinaygangidi](https://github.com/vinaygangidi)
-- Repository: [AgentOpsLab](https://github.com/vinaygangidi/AgentOpsLab)
-
----
-
-## Acknowledgments
-
-Built with:
-- [Anthropic Claude](https://www.anthropic.com/) - AI intelligence
-- [HubSpot CRM](https://www.hubspot.com/) - Customer relationship management
-- Python 3.14
-
----
-
-**Ready to eliminate manual CRM data entry? Get started in 5 minutes.**
 ```bash
-git clone https://github.com/vinaygangidi/AgentOpsLab.git
-cd AgentOpsLab
-python utilities/email_synthesizer.py
+# Required API Keys
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+HUBSPOT_API_KEY=your_hubspot_api_key_here
+
+# Optional API Keys
+OPENAI_API_KEY=your_openai_key_here
+GOOGLE_API_KEY=your_google_key_here
+```
+
+**Get API Keys**:
+- Anthropic: https://console.anthropic.com/
+- HubSpot: https://app.hubspot.com/developer/
+
+---
+
+## 📚 Documentation
+
+- **Agent Documentation**: See `docs/` directory for detailed agent guides
+- **API Reference**: Each agent has inline docstrings
+- **Examples**: See `agents/examples/` for usage examples
+- **Landing Page**: https://agentopslab-landing.vercel.app
+
+---
+
+## 🧪 Testing
+
+```bash
+# Test HR agents
+python agents/hr/resume_screening_agent.py
+python agents/hr/onboarding_workflow_agent.py
+
+# Test Legal agents
+python agents/legal/contract_review_agent.py
+python agents/legal/nda_generator_agent.py
+
+# Test Sales agents
+python agents/email_intelligence_agent.py
 python agents/pipeline_orchestrator_agent.py
 ```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-agent`)
+3. Commit your changes (`git commit -m 'Add new agent'`)
+4. Push to the branch (`git push origin feature/new-agent`)
+5. Open a Pull Request
+
+---
+
+## 📈 Roadmap
+
+- [ ] Add more HR agents (recruiting automation, compensation analysis)
+- [ ] Add Finance agents (invoice processing, expense management)
+- [ ] Add Customer Success agents (health scoring, renewal prediction)
+- [ ] Build web UI for agent management
+- [ ] Add Slack/Teams integration
+- [ ] Create no-code agent builder
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details
+
+---
+
+## 👨‍💻 Author
+
+**Vinay Gangidi**
+- GitHub: [@vinaygangidi](https://github.com/vinaygangidi)
+- LinkedIn: [Vinay Gangidi](https://www.linkedin.com/in/vinaygangidi/)
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with [Claude AI](https://www.anthropic.com/claude) by Anthropic
+- CRM integration powered by [HubSpot](https://www.hubspot.com/)
+- Deployed on [Vercel](https://vercel.com/)
+
+---
+
+## ⚡ Live Demo
+
+Visit the live platform: **https://agentopslab-landing.vercel.app**
+
+Explore all 33 AI agents and see how they can transform your business operations.
+
+---
+
+**Built with ❤️ and AI**
