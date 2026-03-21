@@ -258,23 +258,23 @@ Be objective, specific, and actionable. Return ONLY valid JSON."""
     def display_analysis(self, analysis: Dict):
         """Display performance review analysis in readable format"""
         print("\n" + "="*80)
-        print("📊 PERFORMANCE REVIEW ANALYSIS")
+        print(" PERFORMANCE REVIEW ANALYSIS")
         print("="*80)
         
-        print(f"\n👤 EMPLOYEE: {analysis.get('employee_name')}")
-        print(f"📅 PERIOD: {analysis.get('review_period')}")
+        print(f"\n EMPLOYEE: {analysis.get('employee_name')}")
+        print(f" PERIOD: {analysis.get('review_period')}")
         
         overall = analysis.get('overall_performance', {})
-        print(f"\n⭐ OVERALL RATING: {overall.get('rating')}/5")
-        print(f"📈 PERFORMANCE LEVEL: {overall.get('performance_level')}")
-        print(f"💬 {overall.get('summary')}")
+        print(f"\n OVERALL RATING: {overall.get('rating')}/5")
+        print(f" PERFORMANCE LEVEL: {overall.get('performance_level')}")
+        print(f" {overall.get('summary')}")
         
-        print(f"\n✅ KEY STRENGTHS:")
+        print(f"\n KEY STRENGTHS:")
         for strength in analysis.get('key_strengths', [])[:3]:
             print(f"  • {strength.get('strength')}")
             print(f"    Impact: {strength.get('impact')}")
         
-        print(f"\n🎯 DEVELOPMENT AREAS:")
+        print(f"\n DEVELOPMENT AREAS:")
         for area in analysis.get('development_areas', [])[:3]:
             print(f"  • {area.get('area')}")
         
@@ -288,7 +288,7 @@ Be objective, specific, and actionable. Return ONLY valid JSON."""
         print(f"\n{risk_emoji} RETENTION RISK: {retention.get('risk_level')}")
         
         comp = analysis.get('compensation_recommendation', {})
-        print(f"\n💰 COMPENSATION:")
+        print(f"\n COMPENSATION:")
         print(f"  Merit Increase: {comp.get('merit_increase_suggested')}")
         print(f"  Promotion Ready: {comp.get('promotion_readiness')}")
         
@@ -333,13 +333,13 @@ def main():
         }
     }
     
-    print("🚀 Analyzing performance review...")
+    print(" Analyzing performance review...")
     
     # Analyze review
     # analysis = agent.analyze_review(review_data)
     # agent.display_analysis(analysis)
     
-    print("\n✅ Performance Review Analyzer ready!")
+    print("\n Performance Review Analyzer ready!")
     print("\nTo use:")
     print("1. Prepare review data dictionary")
     print("2. analysis = agent.analyze_review(review_data)")

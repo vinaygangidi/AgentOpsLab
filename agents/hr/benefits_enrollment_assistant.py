@@ -285,27 +285,27 @@ Keep the answer concise (2-4 paragraphs) and easy to understand."""
     def display_recommendations(self, recommendations: Dict):
         """Display benefits recommendations in readable format"""
         print("\n" + "="*80)
-        print("💼 PERSONALIZED BENEFITS RECOMMENDATIONS")
+        print(" PERSONALIZED BENEFITS RECOMMENDATIONS")
         print("="*80)
         
         health = recommendations.get('health_insurance', {})
-        print(f"\n🏥 HEALTH INSURANCE: {health.get('recommended_plan')}")
+        print(f"\n HEALTH INSURANCE: {health.get('recommended_plan')}")
         print(f"   Premium: ${health.get('monthly_premium', 0)}/month")
         print(f"   Reasoning: {health.get('reasoning')}")
         
         retirement = recommendations.get('retirement_401k', {})
-        print(f"\n💰 401(K) RETIREMENT:")
+        print(f"\n 401(K) RETIREMENT:")
         print(f"   Recommended: {retirement.get('recommended_contribution')} of salary")
         print(f"   Annual Contribution: ${retirement.get('annual_contribution', 0):,}")
         print(f"   Employer Match: {retirement.get('employer_match')}")
         
         fsa_hsa = recommendations.get('fsa_hsa', {})
-        print(f"\n🏦 {fsa_hsa.get('type', 'FSA/HSA')}:")
+        print(f"\n {fsa_hsa.get('type', 'FSA/HSA')}:")
         print(f"   Recommended: ${fsa_hsa.get('recommended_contribution', 0):,}/year")
         print(f"   Tax Savings: ${fsa_hsa.get('tax_savings_estimate', 0):,}")
         
         total = recommendations.get('total_cost_summary', {})
-        print(f"\n📊 TOTAL COST SUMMARY:")
+        print(f"\n TOTAL COST SUMMARY:")
         print(f"   Your Monthly Cost: ${total.get('monthly_employee_contribution', 0):.2f}")
         print(f"   Total Benefits Value: ${total.get('total_benefits_value', 0):,}")
         print(f"   {total.get('percentage_of_salary', 0)}% of salary")
@@ -318,7 +318,7 @@ def main():
     
     agent = BenefitsEnrollmentAssistant()
     
-    print("✅ Benefits Enrollment Assistant ready!")
+    print(" Benefits Enrollment Assistant ready!")
     print("\nTo use:")
     print("1. recommendations = agent.recommend_benefits(employee_profile, available_benefits)")
     print("2. answer = agent.answer_benefits_question(question, benefits_context)")

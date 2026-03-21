@@ -324,7 +324,7 @@ Keep it professional and encouraging."""
     def display_compliance_status(self, compliance_report: Dict):
         """Display compliance status in readable format"""
         print("\n" + "="*80)
-        print("📚 TRAINING COMPLIANCE STATUS")
+        print(" TRAINING COMPLIANCE STATUS")
         print("="*80)
         
         status = compliance_report.get('compliance_status')
@@ -343,19 +343,19 @@ Keep it professional and encouraging."""
         
         overdue = compliance_report.get('overdue_courses', [])
         if overdue:
-            print(f"\n🔴 OVERDUE TRAINING ({len(overdue)}):")
+            print(f"\n OVERDUE TRAINING ({len(overdue)}):")
             for course in overdue[:5]:
                 print(f"  • {course.get('course_name')} - {course.get('days_overdue')} days overdue")
         
         expiring = compliance_report.get('expiring_soon', [])
         if expiring:
-            print(f"\n⚠️  EXPIRING SOON ({len(expiring)}):")
+            print(f"\n  EXPIRING SOON ({len(expiring)}):")
             for course in expiring[:5]:
                 print(f"  • {course.get('course_name')} - {course.get('days_remaining')} days left")
         
         not_started = compliance_report.get('not_started', [])
         if not_started:
-            print(f"\n📋 NOT STARTED ({len(not_started)}):")
+            print(f"\n NOT STARTED ({len(not_started)}):")
             for course in not_started[:5]:
                 priority_emoji = "🔴" if course.get('priority') == 'CRITICAL' else "🟡"
                 print(f"  {priority_emoji} {course.get('course_name')}")
@@ -368,7 +368,7 @@ def main():
     
     agent = TrainingComplianceTracker()
     
-    print("✅ Training Compliance Tracker ready!")
+    print(" Training Compliance Tracker ready!")
     print("\nTo use:")
     print("1. requirements = agent.analyze_training_requirements(employee_data, courses)")
     print("2. status = agent.check_compliance_status(records, required)")

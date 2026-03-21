@@ -273,32 +273,32 @@ Format as a professional email with subject line."""
     def display_onboarding_plan(self, onboarding_plan: Dict):
         """Display onboarding plan in readable format"""
         print("\n" + "="*80)
-        print("🎉 EMPLOYEE ONBOARDING PLAN")
+        print(" EMPLOYEE ONBOARDING PLAN")
         print("="*80)
         
-        print(f"\n👤 EMPLOYEE: {onboarding_plan.get('employee_name')}")
-        print(f"💼 ROLE: {onboarding_plan.get('role')}")
-        print(f"📅 START DATE: {onboarding_plan.get('start_date')}")
-        print(f"⏱️  DURATION: {onboarding_plan.get('onboarding_duration')} days")
+        print(f"\n EMPLOYEE: {onboarding_plan.get('employee_name')}")
+        print(f" ROLE: {onboarding_plan.get('role')}")
+        print(f" START DATE: {onboarding_plan.get('start_date')}")
+        print(f" DURATION: {onboarding_plan.get('onboarding_duration')} days")
         
-        print(f"\n💬 WELCOME MESSAGE:")
+        print(f"\n WELCOME MESSAGE:")
         print(f"{onboarding_plan.get('welcome_message')}")
         
-        print(f"\n📋 DAY 1 SCHEDULE:")
+        print(f"\n DAY 1 SCHEDULE:")
         for activity in onboarding_plan.get('day_1_activities', [])[:3]:
             print(f"  • {activity.get('time')} - {activity.get('activity')}")
         
-        print(f"\n✅ WEEK 1 CHECKLIST: ({len(onboarding_plan.get('week_1_checklist', []))} items)")
+        print(f"\n WEEK 1 CHECKLIST: ({len(onboarding_plan.get('week_1_checklist', []))} items)")
         for item in onboarding_plan.get('week_1_checklist', [])[:3]:
             priority = item.get('priority', 'MEDIUM')
             emoji = "🔴" if priority == "HIGH" else "🟡" if priority == "MEDIUM" else "🟢"
             print(f"  {emoji} {item.get('task')}")
         
-        print(f"\n🎓 TRAINING REQUIRED: ({len(onboarding_plan.get('training_required', []))} courses)")
+        print(f"\n TRAINING REQUIRED: ({len(onboarding_plan.get('training_required', []))} courses)")
         for training in onboarding_plan.get('training_required', [])[:3]:
             print(f"  • {training.get('course')} ({training.get('duration')})")
         
-        print(f"\n🎯 SUCCESS METRICS:")
+        print(f"\n SUCCESS METRICS:")
         for metric in onboarding_plan.get('success_metrics', [])[:3]:
             print(f"  • {metric.get('metric')}: {metric.get('target')}")
         
@@ -322,7 +322,7 @@ def main():
         'employment_type': 'Full-time'
     }
     
-    print("🚀 Creating onboarding plan...")
+    print(" Creating onboarding plan...")
     
     # Create onboarding plan
     # onboarding_plan = agent.create_onboarding_plan(employee_data)
@@ -330,7 +330,7 @@ def main():
     
     # Generate welcome email
     # welcome_email = agent.generate_welcome_email(employee_data, onboarding_plan)
-    # print("\n📧 WELCOME EMAIL:")
+    # print("\n WELCOME EMAIL:")
     # print(welcome_email)
     
     # Track progress (after some time)
@@ -340,9 +340,9 @@ def main():
     #     "IT setup and equipment"
     # ]
     # progress = agent.track_onboarding_progress(onboarding_plan, completed_tasks)
-    # print(f"\n📊 Progress: {progress['completion_percentage']}% - Status: {progress['status']}")
+    # print(f"\n Progress: {progress['completion_percentage']}% - Status: {progress['status']}")
     
-    print("\n✅ Onboarding Workflow Agent ready!")
+    print("\n Onboarding Workflow Agent ready!")
     print("\nTo use:")
     print("1. Create employee data dictionary")
     print("2. agent.create_onboarding_plan(employee_data)")

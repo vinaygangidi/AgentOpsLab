@@ -153,7 +153,7 @@ Important:
         Returns:
             Dictionary with candidate data and match score
         """
-        print(f"\n📄 Screening resume: {resume_path}")
+        print(f"\n Screening resume: {resume_path}")
         
         # Read resume file
         resume_text = self._read_resume_file(resume_path)
@@ -161,10 +161,10 @@ Important:
         if not resume_text:
             raise ValueError(f"Could not read resume from {resume_path}")
         
-        print(f"✓ Read {len(resume_text)} characters from resume")
+        print(f" Read {len(resume_text)} characters from resume")
         
         # Extract and score
-        print("🤖 Analyzing resume with Claude AI...")
+        print(" Analyzing resume with Claude AI...")
         candidate_data = self.extract_resume_data(resume_text, job_requirements)
         
         # Display results
@@ -183,7 +183,7 @@ Important:
         Returns:
             List of candidate data dictionaries, sorted by match score
         """
-        print(f"\n📁 Screening resumes from: {resume_folder}")
+        print(f"\n Screening resumes from: {resume_folder}")
         
         resume_path = Path(resume_folder)
         resume_files = list(resume_path.glob("*.txt")) + list(resume_path.glob("*.pdf"))
@@ -196,7 +196,7 @@ Important:
                 candidate_data = self.screen_resume(str(resume_file), job_requirements)
                 candidates.append(candidate_data)
             except Exception as e:
-                print(f"❌ Error screening {resume_file.name}: {e}")
+                print(f" Error screening {resume_file.name}: {e}")
                 continue
         
         # Sort by match score if available
@@ -204,8 +204,7 @@ Important:
             candidates.sort(key=lambda x: x.get('match_score', {}).get('overall_score', 0), reverse=True)
         
         # Display summary
-        print("\n" + "="*80)
-        print("📊 SCREENING SUMMARY")
+        print("\n SCREENING SUMMARY")
         print("="*80)
         
         for i, candidate in enumerate(candidates, 1):
@@ -226,48 +225,48 @@ Important:
         elif path.suffix.lower() == '.pdf':
             # For PDF support, you'd need to install PyPDF2 or pdfplumber
             # For now, return instruction to convert
-            print("⚠️  PDF support requires PyPDF2. Please convert to .txt or install: pip install PyPDF2")
+            print("  PDF support requires PyPDF2. Please convert to .txt or install: pip install PyPDF2")
             return None
         else:
-            print(f"⚠️  Unsupported file format: {path.suffix}")
+            print(f"  Unsupported file format: {path.suffix}")
             return None
     
     def _display_screening_results(self, candidate_data: Dict):
         """Display screening results in a readable format"""
         print("\n" + "="*80)
-        print("✅ CANDIDATE SCREENING RESULTS")
+        print(" CANDIDATE SCREENING RESULTS")
         print("="*80)
         
         # Basic Info
-        print(f"\n👤 CANDIDATE: {candidate_data.get('candidate_name', 'N/A')}")
-        print(f"📧 Email: {candidate_data.get('email', 'N/A')}")
-        print(f"📱 Phone: {candidate_data.get('phone', 'N/A')}")
-        print(f"📍 Location: {candidate_data.get('location', 'N/A')}")
+        print(f"\n CANDIDATE: {candidate_data.get('candidate_name', 'N/A')}")
+        print(f" Email: {candidate_data.get('email', 'N/A')}")
+        print(f" Phone: {candidate_data.get('phone', 'N/A')}")
+        print(f" Location: {candidate_data.get('location', 'N/A')}")
         
         # Experience
         exp = candidate_data.get('experience', {})
-        print(f"\n💼 EXPERIENCE: {exp.get('total_years', 'N/A')} years")
+        print(f"\n EXPERIENCE: {exp.get('total_years', 'N/A')} years")
         print(f"Current: {exp.get('current_role', 'N/A')} at {exp.get('current_company', 'N/A')}")
         
         # Skills
         skills = candidate_data.get('skills', {})
         tech_skills = skills.get('technical', [])
-        print(f"\n🛠️  TECHNICAL SKILLS: {', '.join(tech_skills[:5])}")
+        print(f"\n  TECHNICAL SKILLS: {', '.join(tech_skills[:5])}")
         
         # Match Score
         match = candidate_data.get('match_score', {})
         if match:
-            print(f"\n📊 MATCH SCORE: {match.get('overall_score', 'N/A')}%")
+            print(f"\n MATCH SCORE: {match.get('overall_score', 'N/A')}%")
             print(f"Recommendation: {match.get('recommendation', 'N/A')}")
             print(f"Reasoning: {match.get('reasoning', 'N/A')}")
             
             strengths = match.get('strengths', [])
             if strengths:
-                print(f"\n✅ Strengths: {', '.join(strengths)}")
+                print(f"\n Strengths: {', '.join(strengths)}")
             
             gaps = match.get('gaps', [])
             if gaps:
-                print(f"⚠️  Gaps: {', '.join(gaps)}")
+                print(f"  Gaps: {', '.join(gaps)}")
         
         print("\n" + "="*80)
 
@@ -304,7 +303,7 @@ def main():
     # with open('data/hr/screening_results.json', 'w') as f:
     #     json.dump(candidates, f, indent=2)
     
-    print("\n✅ Resume Screening Agent ready!")
+    print("\n Resume Screening Agent ready!")
     print("\nTo use:")
     print("1. Place resume files in data/hr/resumes/")
     print("2. Run: python agents/hr/resume_screening_agent.py")

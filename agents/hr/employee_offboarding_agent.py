@@ -284,7 +284,7 @@ def main():
         'tenure_years': 3
     }
     
-    print("✅ Employee Offboarding Agent ready!")
+    print(" Employee Offboarding Agent ready!")
     print("\nTo use:")
     print("1. plan = agent.create_offboarding_checklist(employee_data)")
     print("2. analysis = agent.analyze_exit_interview(interview_data)")
