@@ -447,14 +447,6 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ---
 
-## 🙏 Acknowledgments
-
-- Built with [Claude AI](https://www.anthropic.com/claude) by Anthropic
-- CRM integration powered by [HubSpot](https://www.hubspot.com/)
-- Deployed on [Vercel](https://vercel.com/)
-
----
-
 ## ⚡ Live Demo
 
 Visit the live platform: **https://agentopslab-landing.vercel.app**
